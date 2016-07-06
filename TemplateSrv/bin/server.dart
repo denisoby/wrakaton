@@ -3,6 +3,7 @@ import 'package:srv_base/Srv.dart' as base;
 import 'package:embla/http.dart';
 import 'package:embla/http_basic_middleware.dart';
 import 'package:embla_trestle/embla_trestle.dart';
+import 'package:srv_base/Models/Users.dart';
 
 export 'package:embla/application.dart';
 export 'package:embla/bootstrap.dart';
@@ -29,10 +30,15 @@ get embla => [
   new base.HttpsBootstrapper(
     port: 9090,
     pipeline: pipe(
-      LoggerMiddleware, base.CORSMiddleware,
+      LoggerMiddleware, RemoveTrailingSlashMiddleware,
       Route.post('login/', base.JwtLoginMiddleware),
-      RemoveTrailingSlashMiddleware, base.InputParserMiddleware,
-      Route.all('users/*', base.JwtAuthMiddleware, base.UserIdFilter, base.UserService)
+      base.InputParserMiddleware,
+      Route.all('users/*', base.JwtAuthMiddleware,
+        new base.UserGroupFilter(UserGroup.USER.Str), base.UserIdFilter,
+        base.UserService),
+      Route.all('templates/*', base.JwtAuthMiddleware,
+        new base.UserGroupFilter(UserGroup.USER.Str),
+        Srv.TemplateService)
     )
   ),
   new Srv.ActionSrv()
