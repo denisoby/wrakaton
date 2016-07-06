@@ -1,0 +1,15 @@
+name: 'template_srv'
+version: 0.0.1
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dependencies:
+  srv_base:
+    git: https://github.com/vgordievskiy/embla_min_version.git
+
+dev_dependencies:
+  SemplexClientCmn:
+    git: https://github.com/vgordievskiy/ClientCommon.git
+  grinder: any
+  test: any
