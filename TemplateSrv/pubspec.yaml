@@ -8,6 +8,9 @@ dependencies:
   srv_base:
     git: https://github.com/vgordievskiy/embla_min_version.git
 
+dependency_overrides:
+  trestle: ^0.8.0
+
 dev_dependencies:
   SemplexClientCmn:
     git: https://github.com/vgordievskiy/ClientCommon.git
