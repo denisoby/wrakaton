@@ -15,6 +15,8 @@ import 'package:srv_base/Utils/Crypto.dart' as crypto;
 import 'Storage/WrikeApi.dart';
 import 'Models/Template.dart';
 import 'Models/TemplateRequest.dart';
+import 'package:logging/logging.dart';
+import 'package:stack_trace/stack_trace.dart';
 export 'Services/TemplateService.dart';
 export 'Services/UsersService.dart';
 
@@ -46,6 +48,21 @@ class ActionSrv extends Bootstrapper {
     ..validateUserPass = this.validateUserPass
     ..excludeHandler = this.excludeUrlForAuth
     ..welcomeHandler = this.welcomeHandler;
+
+    setupConsoleLog();
+  }
+
+  void setupConsoleLog([Level level = Level.INFO]) {
+    Logger.root.level = level;
+    Logger.root.onRecord.listen((LogRecord rec) {
+
+      if (rec.level >= Level.SEVERE) {
+        var stack = rec.stackTrace != null ? "\n${Trace.format(rec.stackTrace)}" : "";
+        print('[${rec.loggerName}] - ${rec.level.name}: ${rec.time}: ${rec.message} - ${rec.error}${stack}');
+      } else {
+        print('[${rec.loggerName}] - ${rec.level.name}: ${rec.time}: ${rec.message}');
+      }
+    });
   }
 
   @Hook.interaction
