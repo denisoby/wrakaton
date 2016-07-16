@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:di/di.dart';
 import 'package:embla/application.dart';
 import 'package:option/option.dart';
+import 'package:harvest/harvest.dart';
 import 'package:http_exception/http_exception.dart';
 
 import 'package:srv_base/Srv.dart';
@@ -12,6 +13,7 @@ import 'package:srv_base/Utils/Crypto.dart' as crypto;
 export 'Services/TemplateService.dart';
 
 class ActionSrv extends Bootstrapper {
+  MessageBus _bus = new MessageBus();
   ModuleInjector _injector;
   AuthConfig authConfig = new AuthConfig();
   UserService userService;
@@ -19,6 +21,7 @@ class ActionSrv extends Bootstrapper {
   @Hook.init
   init() {
     _injector = new ModuleInjector([ new Module()
+      ..bind(MessageBus, toFactory: () => _bus)
       ..bind(AuthConfig, toFactory: () => authConfig)
     ]);
     Utils.setInjector(_injector);
