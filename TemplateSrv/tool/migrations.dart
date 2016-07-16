@@ -18,6 +18,7 @@ class CreateTemplatesTableMigration extends Migration {
       schema.timestamp('created_at').nullable(false);
       schema.timestamp('updated_at').nullable(false);
       schema.boolean('enabled').nullable(false);
+      schema.int('_ype').nullable(false);
       schema.json('nested');
       schema.json('config');
     });
