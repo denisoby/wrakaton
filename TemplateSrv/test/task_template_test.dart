@@ -49,20 +49,22 @@ main() async {
       await TestCommon.login();
     });
 
-    createTemplate(String header, String description) {
+    createTemplate(String header,
+                   String description,
+                   String type,
+                   List<String> assignee) {
       Map template = {
-        'header' : header,
-        'description' : description
+        'title' : header,
+        'description' : description,
+        'type' : type,
+        'assignee' : JSON.encode(assignee)
       };
       return TestCommon.net.Create("$serverUrl/templates", template);
     }
 
     test("create template", () async {
-      Map template = {
-        'header' : 'testTemplate1',
-        'description' : 'some template'
-      };
-      var resp = await TestCommon.net.Create("$serverUrl/templates", template);
+      var resp = await createTemplate('testTemplateTask1',
+        'some template of task', 'TASK', ['user_id_1', 'user_id_2']);
       resp = JSON.decode(resp);
       expect(resp, allOf([
         containsPair('id', 1),
@@ -76,9 +78,10 @@ main() async {
         containsPair('id', 1),
         containsPair('enabled', true)
       ]));
-      expect(resp['config'], allOf([
-        containsPair('header', 'testTemplate1'),
-        containsPair('description', 'some template')
+      expect(resp['data'], allOf([
+        containsPair('title', 'testTemplateTask1'),
+        containsPair('description', 'some template of task'),
+        containsPair('assignee', ['user_id_1', 'user_id_2']),
       ]));
     });
 
@@ -88,6 +91,7 @@ main() async {
     });
 
     test("test nested", () async {
+      /*
       var resp = await createTemplate('nested template', 'some nested template');
       resp = JSON.decode(resp);
       resp = await TestCommon.net.Update("$serverUrl/templates/1/nested", {
@@ -95,6 +99,7 @@ main() async {
       });
       resp = await TestCommon.net.Get("$serverUrl/templates/1");
       expect(resp['nested'], equals([2]));
+      */
     });
   });
 }

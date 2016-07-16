@@ -6,7 +6,7 @@ class TemplateType {
   final _value;
   const TemplateType._internal(this._value);
   String get Str => _value;
-  toString() => 'TemplateType.$_value';
+  toString() => '$_value';
   toInt() => values.indexOf(this);
 
   static TemplateType fromInt(int ind) => values[ind];
@@ -27,20 +27,20 @@ class TemplateType {
 class Template extends Model {
   @field int id;
   @field bool enabled;
-  @field int _type;
+  @field int type;
   @field List nested;
-  @field Map config;
+  @field Map data;
 
-  TemplateType get TType => TemplateType.fromInt(_type);
-  set TType(TemplateType type) { _type = type.toInt(); }
+  TemplateType get TType => TemplateType.fromInt(type);
+  set TType(TemplateType val) { type = val.toInt(); }
 
   Map toJson() {
     return {
       'id' : id,
       'enabled' : enabled,
-      'type' : _type,
-      'nested' : nested,
-      'config' : config
+      'type' : TType,
+      'data' : data,
+      'nested' : nested
     };
   }
 }

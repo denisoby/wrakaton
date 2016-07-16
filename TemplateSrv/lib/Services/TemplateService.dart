@@ -17,14 +17,18 @@ class TemplateService extends Controller with QueryLimit {
 
   @Post('/') create(Input args) async {
     Map params = args.body;
-    if(expect(params, 'header') &&
-       expect(params, 'description'))
+    if(expect(params, 'type') &&
+       expect(params, 'title') &&
+       expect(params, 'description') &&
+       expect(params, 'assignee'))
     {
       Template template = new Template()
         ..enabled = true
-        ..config = {
-          'header' : params['header'],
-          'description' : params['description']
+        ..TType = TemplateType.fromStr(params['type'])
+        ..data = {
+          'title' : params['title'],
+          'description' : params['description'],
+          'assignee' : JSON.decode(params['assignee'])
         };
       if(params.containsKey('nested')) {
         template.nested = JSON.decode(params['nested']);
