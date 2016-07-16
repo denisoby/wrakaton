@@ -11,6 +11,7 @@ import 'package:srv_base/Srv.dart';
 import 'package:srv_base/Models/Users.dart';
 import 'package:srv_base/Utils/Crypto.dart' as crypto;
 export 'Services/TemplateService.dart';
+export 'Services/UsersService.dart';
 
 class ActionSrv extends Bootstrapper {
   MessageBus _bus = new MessageBus();

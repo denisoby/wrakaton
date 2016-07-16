@@ -28,7 +28,7 @@ main() async {
           base.InputParserMiddleware,
           Route.all('users/*', base.JwtAuthMiddleware,
             new base.UserGroupFilter(UserGroup.USER.Str), base.UserIdFilter,
-            base.UserService),
+            Srv.UserService),
           Route.all('templates/*', base.JwtAuthMiddleware,
             new base.UserGroupFilter(UserGroup.USER.Str),
             Srv.TemplateService)
