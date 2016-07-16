@@ -1,3 +1,4 @@
+import 'dart:isolate';
 import 'package:template_srv/Srv.dart' as Srv;
 import 'package:srv_base/Srv.dart' as base;
 import 'package:embla/http.dart';
@@ -6,29 +7,27 @@ import 'package:embla_trestle/embla_trestle.dart';
 import 'package:srv_base/Models/Users.dart';
 
 export 'package:embla/application.dart';
-export 'package:embla/bootstrap.dart';
+import 'package:embla/bootstrap.dart' as embla_bootstrap;
 
-final Map config = {
-  'username': 'postgres',
-  'password': 'qwerty',
-  'database': 'templates'
+Map config = {
+  'port' : 9090
 };
 
+main(List<String> arguments, SendPort sendExitCommandPort) async {
+  if(arguments.length == 1) {
+    config['port'] = int.parse(arguments[0]);
+  }
+  return embla_bootstrap.main(arguments, sendExitCommandPort);
+}
 
 var driver = new InMemoryDriver();
-
-/*
-var driver = new base.PostgisPsqlDriver(username: config['username'],
-                                        password: config['password'],
-                                        database: config['database']);
-*/
 
 get embla => [
   new DatabaseBootstrapper(
     driver: driver
   ),
   new base.HttpsBootstrapper(
-    port: 9090,
+    port: config['port'],
     pipeline: pipe(
       LoggerMiddleware, RemoveTrailingSlashMiddleware,
       Route.post('login/', base.JwtLoginMiddleware),
