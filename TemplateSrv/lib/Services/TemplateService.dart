@@ -11,9 +11,9 @@ import '../Models/TaskTemplate.dart';
 import 'package:srv_base/Middleware/input_parser/input_parser.dart';
 
 class TemplateService extends Controller with QueryLimit {
-  final Repository<Template> taskTemplates;
+  final Repository<Template> templates;
 
-  TemplateService(this.taskTemplates);
+  TemplateService(this.templates);
 
   @Post('/') create(Input args) async {
     Map params = args.body;
@@ -33,7 +33,7 @@ class TemplateService extends Controller with QueryLimit {
       if(params.containsKey('nested')) {
         template.nested = JSON.decode(params['nested']);
       }
-      await taskTemplates.save(template);
+      await templates.save(template);
       return {'msg' : 'ok', 'id' : template.id};
     } else {
       this.abortBadRequest('wrong data');
@@ -43,7 +43,7 @@ class TemplateService extends Controller with QueryLimit {
   @Get('/') getAll(Input args) {
     Map params = args.body;
     RepositoryQuery<Template> query =
-      taskTemplates.where((el) => el.enabled == true);
+      templates.where((el) => el.enabled == true);
     if(params.containsKey('count')) {
       final int count = int.parse(params['count']);
       if(params.containsKey('page')) {
@@ -57,7 +57,7 @@ class TemplateService extends Controller with QueryLimit {
   }
 
   @Get('/:id') getTemplate({String id}) {
-    return taskTemplates.find(int.parse(id));
+    return templates.find(int.parse(id));
   }
 
   @Put('/:id/nested') addNested(Input args, {String id}) async {
@@ -65,12 +65,12 @@ class TemplateService extends Controller with QueryLimit {
       if(expect(params, 'items')) {
         List items = JSON.decode(params['items']);
         RepositoryQuery<Template> query =
-          taskTemplates.where((el) => items.contains(el.id));
+          templates.where((el) => items.contains(el.id));
         int count = await query.count();
         if(count == items.length) {
           Template template = await getTemplate(id : id);
           template.nested = items;
-          await taskTemplates.save(template);
+          await templates.save(template);
         }
       }
       return {'msg' : 'ok'};
