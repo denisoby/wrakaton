@@ -8,12 +8,12 @@ class WrikeStorage implements IStorage {
 
   @override
   Future<String> createProject(dynamic params) {
-    return new Future.value();
+    return new Future.value('wrike_proj_1');
   }
 
   @override
   Future<String> createTask(dynamic params) {
-    return new Future.value();
+    return new Future.value('wrike_task_1');
   }
 
   @override

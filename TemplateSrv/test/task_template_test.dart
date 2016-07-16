@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import "package:test/test.dart";
 import 'package:embla/http.dart';
@@ -109,5 +110,14 @@ main() async {
       resp = await TestCommon.net.Get("$serverUrl/templates/${baseProjId}");
       expect(resp['nested'], equals([nestedTemplateId]));
     });
+
+    test('deploy template', () async {
+      Map params = {'template' : 2};
+      var resp = await TestCommon
+        .net.Create("$serverUrl/${TestCommon.userUrl}/templates", params);
+      await new Future.delayed(new Duration(seconds: 3));
+      print(resp);
+    });
+
   });
 }
