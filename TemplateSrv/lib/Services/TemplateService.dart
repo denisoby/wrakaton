@@ -5,10 +5,10 @@ import 'package:embla/http.dart';
 import 'package:embla/http_annotations.dart';
 import 'package:embla_trestle/embla_trestle.dart';
 
+import 'package:srv_base/Middleware/input_parser/input_parser.dart';
 import 'package:srv_base/Utils/Utils.dart';
 import 'package:srv_base/Utils/QueryLimit.dart';
-import '../Models/TaskTemplate.dart';
-import 'package:srv_base/Middleware/input_parser/input_parser.dart';
+import '../Models/Template.dart';
 
 class TemplateService extends Controller with QueryLimit {
   final Repository<Template> templates;

@@ -1,4 +1,4 @@
-library template_srv.models.task_template;
+library template_srv.models.template;
 import 'dart:async';
 import 'package:embla_trestle/embla_trestle.dart';
 
