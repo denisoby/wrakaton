@@ -1,6 +1,6 @@
 # Template Server
 
-A web server built using [Shelf](https://pub.dartlang.org/packages/shelf).
+A web server built using [Embla](https://pub.dartlang.org/packages/embla).
 
 # Create user:
 Make POST request on server_url_base/user with post params as url encoded:<br>
