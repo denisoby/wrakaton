@@ -18,6 +18,10 @@ class CreateTask extends Task {
 
   @override
   Future performWork() {
-
+    Map params = {
+      'title' : this.params.title,
+      'description' : this.params.description
+    };
+    return _storage.createTask(params);
   }
 }

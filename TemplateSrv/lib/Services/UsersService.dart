@@ -12,8 +12,7 @@ import 'package:srv_base/Utils/Utils.dart';
 import 'package:srv_base/Utils/Crypto.dart' as crypto;
 import 'package:srv_base/Middleware/input_parser/input_parser.dart';
 import 'package:srv_base/Models/Users.dart';
-import '../Utils/Tasks/Tasks.dart';
-import '../Utils/Tasks/Projects.dart';
+import '../Utils/Tasks/DeployTemplate.dart';
 import '../Storage/IStorage.dart';
 import '../Models/Template.dart';
 import '../Models/TemplateRequest.dart';
@@ -98,28 +97,7 @@ class UserService extends Controller {
   }
 
   _materialize(Template base) async {
-    String idBase;
-    switch (base.TType) {
-      case TemplateType.PROJECT :
-      {
-        Map params = {
-
-        };
-        idBase = await _storage.createProject(params);
-      }
-        break;
-      case TemplateType.TASK :
-      {
-        Map params = {
-
-        };
-        idBase = await _storage.createTask(params);
-      }
-        break;
-    }
-    if(base.nested.isNotEmpty) {
-
-    }
+    _taskQueue.queue(new DeployTemplate(base));
   }
 
   @Post('/:id/templates') createTemplateRequest(Input args, {String id}) async {
@@ -130,7 +108,7 @@ class UserService extends Controller {
       TemplateRequest request = new TemplateRequest()
         ..user_id = user.id
         ..base_template_id = template.id;
-
+      _materialize(template);
     }
     return this.ok('');
   }

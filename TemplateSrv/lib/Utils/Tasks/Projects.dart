@@ -11,13 +11,16 @@ class CreateProjectParams {
 }
 
 class CreateProject extends Task {
-
   IStorage _storage = Utils.$(IStorage);
   CreateProjectParams params;
   CreateProject(this.params);
 
   @override
   Future performWork() {
-
+    Map params = {
+      'title' : this.params.title,
+      'description' : this.params.description
+    };
+    return _storage.createProject(params);
   }
 }
