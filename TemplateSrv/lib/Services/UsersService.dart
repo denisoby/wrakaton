@@ -6,11 +6,15 @@ import 'package:embla/http.dart';
 import 'package:embla/http_annotations.dart';
 import 'package:embla_trestle/embla_trestle.dart';
 import 'package:harvest/harvest.dart';
+import 'package:tasks/tasks.dart';
 
 import 'package:srv_base/Utils/Utils.dart';
 import 'package:srv_base/Utils/Crypto.dart' as crypto;
 import 'package:srv_base/Middleware/input_parser/input_parser.dart';
 import 'package:srv_base/Models/Users.dart';
+import '../Utils/Tasks/Tasks.dart';
+import '../Utils/Tasks/Projects.dart';
+import '../Storage/IStorage.dart';
 import '../Models/Template.dart';
 import '../Models/TemplateRequest.dart';
 
@@ -21,12 +25,15 @@ class UserService extends Controller {
   final Repository<Template> templates;
   final Repository<TemplateRequest> template_requests;
   MessageBus _bus;
+  TaskQueue _taskQueue = new TaskQueue(concurrencyCount: 3);
 
   Uuid generator = new Uuid();
+  IStorage _storage;
 
   UserService(this.users, this.templates, this.template_requests)
   {
     _bus = Utils.$(MessageBus);
+    _storage = Utils.$(IStorage);
   }
 
   Future<User> getUserByName(String username)
@@ -90,6 +97,31 @@ class UserService extends Controller {
     return this.ok('');
   }
 
+  _materialize(Template base) async {
+    String idBase;
+    switch (base.TType) {
+      case TemplateType.PROJECT :
+      {
+        Map params = {
+
+        };
+        idBase = await _storage.createProject(params);
+      }
+        break;
+      case TemplateType.TASK :
+      {
+        Map params = {
+
+        };
+        idBase = await _storage.createTask(params);
+      }
+        break;
+    }
+    if(base.nested.isNotEmpty) {
+
+    }
+  }
+
   @Post('/:id/templates') createTemplateRequest(Input args, {String id}) async {
     User user =  await getUserById(int.parse(id));
     Map params = args.body;
@@ -98,6 +130,7 @@ class UserService extends Controller {
       TemplateRequest request = new TemplateRequest()
         ..user_id = user.id
         ..base_template_id = template.id;
+
     }
     return this.ok('');
   }

@@ -10,6 +10,7 @@ import 'package:http_exception/http_exception.dart';
 import 'package:srv_base/Srv.dart';
 import 'package:srv_base/Models/Users.dart';
 import 'package:srv_base/Utils/Crypto.dart' as crypto;
+import 'Storage/WrikeApi.dart';
 export 'Services/TemplateService.dart';
 export 'Services/UsersService.dart';
 
@@ -24,6 +25,7 @@ class ActionSrv extends Bootstrapper {
     _injector = new ModuleInjector([ new Module()
       ..bind(MessageBus, toFactory: () => _bus)
       ..bind(AuthConfig, toFactory: () => authConfig)
+      ..bind(IStorage, toValue: new WrikeStorage())
     ]);
     Utils.setInjector(_injector);
 

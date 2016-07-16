@@ -32,6 +32,8 @@ class TemplateService extends Controller with QueryLimit {
         };
       if(params.containsKey('nested')) {
         template.nested = JSON.decode(params['nested']);
+      } else {
+        template.nested = [];
       }
       await templates.save(template);
       return {'msg' : 'ok', 'id' : template.id};
