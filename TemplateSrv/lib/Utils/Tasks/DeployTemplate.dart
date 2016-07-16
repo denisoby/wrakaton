@@ -34,7 +34,7 @@ class DeployTemplate extends Task {
         return await action.execute();
       } break;
     }
-    return new Future.error('bad template type');
+    return new Future.error(new ArgumentError('bad template type'));
   }
 
   @override
