@@ -14,6 +14,7 @@ import 'package:srv_base/Models/Users.dart';
 import 'package:srv_base/Utils/Crypto.dart' as crypto;
 import 'Storage/WrikeApi.dart';
 import 'Models/Template.dart';
+import 'Models/TemplateRequest.dart';
 export 'Services/TemplateService.dart';
 export 'Services/UsersService.dart';
 
@@ -22,6 +23,7 @@ class ActionSrv extends Bootstrapper {
   ModuleInjector _injector;
   AuthConfig authConfig = new AuthConfig();
   Repository<Template> _templates;
+  Repository<TemplateRequest> _requests;
   UserService userService;
 
   @Hook.init
@@ -32,6 +34,8 @@ class ActionSrv extends Bootstrapper {
       ..bind(IStorage, toValue: new WrikeStorage())
       ..bind(new TypeLiteral<Repository<Template>>().type,
              toFactory: () => _templates)
+      ..bind(new TypeLiteral<Repository<TemplateRequest>>().type,
+             toFactory: () => _requests)
     ]);
     Utils.setInjector(_injector);
 
@@ -50,8 +54,13 @@ class ActionSrv extends Bootstrapper {
   }
 
   @Hook.interaction
-  initRepTemplates(Repository<Template> templates) {
+  initTemplates(Repository<Template> templates) {
     this._templates = templates;
+  }
+
+  @Hook.interaction
+  initRequests(Repository<TemplateRequest> requests) {
+    this._requests = requests;
   }
 
   Future<User> _getUserByName(String username)

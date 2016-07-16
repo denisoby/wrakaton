@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:tasks/tasks.dart';
 import 'package:srv_base/Utils/Utils.dart';
 import 'package:template_srv/Models/Template.dart';
+import 'package:template_srv/Models/TemplateRequest.dart';
 import 'package:template_srv/Storage/IStorage.dart';
 
 import 'Projects.dart';
@@ -10,8 +11,9 @@ import 'Tasks.dart';
 
 class DeployTemplate extends Task {
   final Template base;
+  TemplateRequest request;
   IStorage _storage = Utils.$(IStorage);
-  DeployTemplate(this.base);
+  DeployTemplate(this.base, this.request);
 
   Future<String> _create(Template el) async {
     switch (base.TType) {
@@ -40,11 +42,14 @@ class DeployTemplate extends Task {
     String baseId = await _create(base);
     await for( Template el in TemplateUtils.getNested(base)) {
       String entityId = await _create(el);
+      request.nested_templates.add(entityId);
+
       if(base.type == TemplateType.PROJECT) {
         await _storage.addSubTaskForProject(baseId, entityId);
       } else if (base.type == TemplateType.TASK) {
         await _storage.addSubTaskForTask(baseId, entityId);
       }
     }
+    await TemplateRequestUtils.getTemplateRequest().save(request);
   }
 }

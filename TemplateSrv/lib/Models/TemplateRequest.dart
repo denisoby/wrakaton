@@ -1,5 +1,7 @@
 library template_srv.models.template.requst;
 import 'package:embla_trestle/embla_trestle.dart';
+import 'package:di/type_literal.dart';
+import 'package:srv_base/Utils/Utils.dart';
 
 class TemplateRequest extends Model {
   @field int id;
@@ -16,5 +18,11 @@ class TemplateRequest extends Model {
       'nested_templates' : nested_templates,
       'data' : data
     };
+  }
+}
+
+class TemplateRequestUtils {
+  static Repository<TemplateRequest> getTemplateRequest() {
+    return Utils.$(new TypeLiteral<Repository<TemplateRequest>>().type);
   }
 }

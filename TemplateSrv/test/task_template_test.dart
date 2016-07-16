@@ -115,7 +115,6 @@ main() async {
       Map params = {'template' : 2};
       var resp = await TestCommon
         .net.Create("$serverUrl/${TestCommon.userUrl}/templates", params);
-      //await new Future.delayed(new Duration(seconds: 3));
       print(resp);
     });
 

@@ -96,8 +96,8 @@ class UserService extends Controller {
     return this.ok('');
   }
 
-  _materialize(Template base) async {
-    _taskQueue.queue(new DeployTemplate(base));
+  _materialize(Template base, TemplateRequest request) async {
+    _taskQueue.queue(new DeployTemplate(base, request));
   }
 
   @Post('/:id/templates') createTemplateRequest(Input args, {String id}) async {
@@ -107,8 +107,11 @@ class UserService extends Controller {
       Template template = await templates.find(int.parse(params['template']));
       TemplateRequest request = new TemplateRequest()
         ..user_id = user.id
-        ..base_template_id = template.id;
-      _materialize(template);
+        ..base_template_id = template.id
+        ..nested_templates = []
+        ..data = {};
+      await TemplateRequestUtils.getTemplateRequest().save(request);
+      _materialize(template, request);
     }
     return this.ok('');
   }
