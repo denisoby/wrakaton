@@ -1,6 +1,8 @@
 library template_srv.models.template;
 import 'dart:async';
+import 'package:di/type_literal.dart';
 import 'package:embla_trestle/embla_trestle.dart';
+import 'package:srv_base/Srv.dart';
 
 class TemplateType {
   final _value;
@@ -46,5 +48,16 @@ class Template extends Model {
       'data' : data,
       'nested' : nested
     };
+  }
+}
+
+class TemplateUtils {
+  static Repository<Template> getTemplates() {
+    return Utils.$(new TypeLiteral<Repository<Template>>().type);
+  }
+
+  static Stream<Template> getNested(Template el) {
+    if(el.nested.isEmpty) return new Stream.empty();
+    return getTemplates().where((el) => el.nested.contains(el.id)).get();
   }
 }

@@ -12,9 +12,7 @@ class DeployTemplate extends Task {
   final Template base;
   DeployTemplate(this.base);
 
-  @override
-  Future performWork() async {
-    String baseId = null;
+  Future<String> _create(Template el) async {
     switch (base.TType) {
       case TemplateType.PROJECT :
       {
@@ -22,19 +20,24 @@ class DeployTemplate extends Task {
           ..title = base.Title
           ..description = base.Description;
         CreateProject action = new CreateProject(params);
-        baseId = await action.execute();
-      }
-        break;
+        return await action.execute();
+      } break;
       case TemplateType.TASK :
       {
         CreateTaskParams params = new CreateTaskParams()
           ..title = base.Title
           ..description = base.Description;
         CreateTask action = new CreateTask(params);
-        baseId = await action.execute();
-      }
-        break;
+        return await action.execute();
+      } break;
     }
-    print("!!!!!!!!!!!!11 ${baseId}");
+  }
+
+  @override
+  Future performWork() async {
+    String baseId = await _create(base);
+    if(base.nested.isNotEmpty) {
+      
+    }
   }
 }
