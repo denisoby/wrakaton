@@ -92,15 +92,22 @@ main() async {
     });
 
     test("test nested", () async {
-      /*
-      var resp = await createTemplate('nested template', 'some nested template');
-      resp = JSON.decode(resp);
-      resp = await TestCommon.net.Update("$serverUrl/templates/1/nested", {
-        'items' : JSON.encode([resp['id']])
+      int baseProjId = null;
+      int nestedTemplateId = null;
+      var resp = await createTemplate('base project template',
+        'some priject template', 'PROJECT', []);
+      baseProjId = JSON.decode(resp)['id'];
+
+      resp = await createTemplate('testTemplateTask1',
+        'some template of task', 'TASK', ['user_id_1', 'user_id_2']);
+
+      nestedTemplateId = JSON.decode(resp)['id'];
+      resp = await TestCommon
+        .net.Update("$serverUrl/templates/${baseProjId}/nested", {
+        'items' : JSON.encode([nestedTemplateId])
       });
-      resp = await TestCommon.net.Get("$serverUrl/templates/1");
-      expect(resp['nested'], equals([2]));
-      */
+      resp = await TestCommon.net.Get("$serverUrl/templates/${baseProjId}");
+      expect(resp['nested'], equals([nestedTemplateId]));
     });
   });
 }
