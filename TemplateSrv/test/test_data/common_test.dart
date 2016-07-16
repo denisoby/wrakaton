@@ -7,6 +7,9 @@ import 'dart:async';
 
 import 'init_data.dart';
 
+/*workaround for run all tests*/
+void main() {}
+
 class TestCommon {
   static String srvUrl = "http://localhost:9090";
   static String userUrl;

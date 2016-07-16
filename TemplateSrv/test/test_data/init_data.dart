@@ -7,6 +7,9 @@ import '../../tool/migrations.dart' as data;
 
 import 'package:srv_base/Models/Users.dart';
 
+/*workaround for run all tests*/
+void main() {}
+
 class InitTestData extends Bootstrapper {
 
   final Gateway gateway;
