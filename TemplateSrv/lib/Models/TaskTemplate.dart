@@ -38,7 +38,7 @@ class Template extends Model {
     return {
       'id' : id,
       'enabled' : enabled,
-      'type' : TType,
+      'type' : TType.toString(),
       'data' : data,
       'nested' : nested
     };

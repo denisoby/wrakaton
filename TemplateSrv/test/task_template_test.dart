@@ -76,7 +76,8 @@ main() async {
       Map resp = await TestCommon.net.Get("$serverUrl/templates/1");
       expect(resp, allOf([
         containsPair('id', 1),
-        containsPair('enabled', true)
+        containsPair('enabled', true),
+        containsPair('type', 'TASK')
       ]));
       expect(resp['data'], allOf([
         containsPair('title', 'testTemplateTask1'),
