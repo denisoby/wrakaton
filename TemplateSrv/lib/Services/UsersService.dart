@@ -18,11 +18,13 @@ export 'package:srv_base/Models/Users.dart';
 
 class UserService extends Controller {
   final Repository<User> users;
+  final Repository<Template> templates;
+  final Repository<TemplateRequest> template_requests;
   MessageBus _bus;
 
   Uuid generator = new Uuid();
 
-  UserService(this.users)
+  UserService(this.users, this.templates, this.template_requests)
   {
     _bus = Utils.$(MessageBus);
   }
@@ -92,7 +94,10 @@ class UserService extends Controller {
     User user =  await getUserById(int.parse(id));
     Map params = args.body;
     if(expect(params, 'template')) {
-      TemplateRequest
+      Template template = await templates.find(int.parse(params['template']));
+      TemplateRequest request = new TemplateRequest()
+        ..user_id = user.id
+        ..base_template_id = template.id;
     }
     return this.ok('');
   }
