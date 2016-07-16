@@ -37,19 +37,23 @@ class DeployTemplate extends Task {
     return new Future.error(new ArgumentError('bad template type'));
   }
 
-  @override
-  Future performWork() async {
-    String baseId = await _create(base);
-    await for( Template el in TemplateUtils.getNested(base)) {
+  Future _handleNested(Template template, String baseId) async {
+    await for(Template el in TemplateUtils.getNested(template)) {
       String entityId = await _create(el);
       request.nested_templates.add(entityId);
 
-      if(base.type == TemplateType.PROJECT) {
+      if(template.type == TemplateType.PROJECT) {
         await _storage.addSubTaskForProject(baseId, entityId);
-      } else if (base.type == TemplateType.TASK) {
+      } else if (template.type == TemplateType.TASK) {
         await _storage.addSubTaskForTask(baseId, entityId);
       }
     }
+  }
+
+  @override
+  Future performWork() async {
+    String baseId = await _create(base);
+    await _handleNested(base, baseId);
     await TemplateRequestUtils.getTemplateRequest().save(request);
   }
 }
