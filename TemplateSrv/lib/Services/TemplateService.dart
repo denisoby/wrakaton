@@ -11,7 +11,7 @@ import '../Models/TaskTemplate.dart';
 import 'package:srv_base/Middleware/input_parser/input_parser.dart';
 
 class TemplateService extends Controller with QueryLimit {
-  final Repository<TaskTemplate> taskTemplates;
+  final Repository<Template> taskTemplates;
 
   TemplateService(this.taskTemplates);
 
@@ -20,7 +20,7 @@ class TemplateService extends Controller with QueryLimit {
     if(expect(params, 'header') &&
        expect(params, 'description'))
     {
-      TaskTemplate template = new TaskTemplate()
+      Template template = new Template()
         ..enabled = true
         ..config = {
           'header' : params['header'],
@@ -38,7 +38,7 @@ class TemplateService extends Controller with QueryLimit {
 
   @Get('/') getAll(Input args) {
     Map params = args.body;
-    RepositoryQuery<TaskTemplate> query =
+    RepositoryQuery<Template> query =
       taskTemplates.where((el) => el.enabled == true);
     if(params.containsKey('count')) {
       final int count = int.parse(params['count']);
@@ -60,11 +60,11 @@ class TemplateService extends Controller with QueryLimit {
       Map params = args.body;
       if(expect(params, 'items')) {
         List items = JSON.decode(params['items']);
-        RepositoryQuery<TaskTemplate> query =
+        RepositoryQuery<Template> query =
           taskTemplates.where((el) => items.contains(el.id));
         int count = await query.count();
         if(count == items.length) {
-          TaskTemplate template = await getTemplate(id : id);
+          Template template = await getTemplate(id : id);
           template.nested = items;
           await taskTemplates.save(template);
         }
