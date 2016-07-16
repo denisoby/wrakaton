@@ -5,12 +5,12 @@ import 'IStorage.dart';
 class WrikeStorage implements IStorage {
 
   @override
-  Future<String> createProject() {
+  Future<String> createProject(dynamic params) {
     // TODO: implement createProject
   }
 
   @override
-  Future<String> createTask() {
+  Future<String> createTask(dynamic params) {
     // TODO: implement createTask
   }
 }
