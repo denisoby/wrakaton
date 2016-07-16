@@ -2,15 +2,18 @@ library template_srv;
 
 import 'dart:async';
 import 'package:di/di.dart';
+import 'package:di/type_literal.dart';
 import 'package:embla/application.dart';
 import 'package:option/option.dart';
 import 'package:harvest/harvest.dart';
 import 'package:http_exception/http_exception.dart';
+import 'package:trestle/trestle.dart';
 
 import 'package:srv_base/Srv.dart';
 import 'package:srv_base/Models/Users.dart';
 import 'package:srv_base/Utils/Crypto.dart' as crypto;
 import 'Storage/WrikeApi.dart';
+import 'Models/Template.dart';
 export 'Services/TemplateService.dart';
 export 'Services/UsersService.dart';
 
@@ -18,6 +21,7 @@ class ActionSrv extends Bootstrapper {
   MessageBus _bus = new MessageBus();
   ModuleInjector _injector;
   AuthConfig authConfig = new AuthConfig();
+  Repository<Template> _templates;
   UserService userService;
 
   @Hook.init
@@ -26,6 +30,8 @@ class ActionSrv extends Bootstrapper {
       ..bind(MessageBus, toFactory: () => _bus)
       ..bind(AuthConfig, toFactory: () => authConfig)
       ..bind(IStorage, toValue: new WrikeStorage())
+      ..bind(new TypeLiteral<Repository<Template>>().type,
+             toFactory: () => _templates)
     ]);
     Utils.setInjector(_injector);
 
@@ -41,6 +47,11 @@ class ActionSrv extends Bootstrapper {
   @Hook.interaction
   initUserSrv(UserService srv) {
     this.userService = srv;
+  }
+
+  @Hook.interaction
+  initRepTemplates(Repository<Template> templates) {
+    this._templates = templates;
   }
 
   Future<User> _getUserByName(String username)

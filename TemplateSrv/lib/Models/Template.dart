@@ -56,8 +56,8 @@ class TemplateUtils {
     return Utils.$(new TypeLiteral<Repository<Template>>().type);
   }
 
-  static Stream<Template> getNested(Template el) {
-    if(el.nested.isEmpty) return new Stream.empty();
-    return getTemplates().where((el) => el.nested.contains(el.id)).get();
+  static Stream<Template> getNested(Template base) {
+    if(base.nested.isEmpty) return new Stream.empty();
+    return getTemplates().where((el) => base.nested.contains(el.id)).get();
   }
 }

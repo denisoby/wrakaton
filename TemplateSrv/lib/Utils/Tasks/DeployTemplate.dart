@@ -10,6 +10,7 @@ import 'Tasks.dart';
 
 class DeployTemplate extends Task {
   final Template base;
+  IStorage _storage = Utils.$(IStorage);
   DeployTemplate(this.base);
 
   Future<String> _create(Template el) async {
@@ -31,13 +32,19 @@ class DeployTemplate extends Task {
         return await action.execute();
       } break;
     }
+    return new Future.error('bad template type');
   }
 
   @override
   Future performWork() async {
     String baseId = await _create(base);
-    if(base.nested.isNotEmpty) {
-      
+    await for( Template el in TemplateUtils.getNested(base)) {
+      String entityId = await _create(el);
+      if(base.type == TemplateType.PROJECT) {
+        await _storage.addSubTaskForProject(baseId, entityId);
+      } else if (base.type == TemplateType.TASK) {
+        await _storage.addSubTaskForTask(baseId, entityId);
+      }
     }
   }
 }
