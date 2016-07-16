@@ -9,13 +9,13 @@ class WrikeStorage implements IStorage {
   final Logger log = new Logger('template_srv.WrikeApi');
   @override
   Future<String> createProject(dynamic params) {
-    log.info('Wrike: Create Project');
+    log.info('Wrike: Create Project with $params');
     return new Future.value('wrike_proj_1');
   }
 
   @override
   Future<String> createTask(dynamic params) {
-    log.info('Wrike: Create Task');
+    log.info('Wrike: Create Task with $params');
     return new Future.value('wrike_task_1');
   }
 

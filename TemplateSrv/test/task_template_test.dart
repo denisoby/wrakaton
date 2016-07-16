@@ -96,7 +96,7 @@ main() async {
       int baseProjId = null;
       int nestedTemplateId = null;
       var resp = await createTemplate('base project template',
-        'some priject template', 'PROJECT', []);
+        'some project template', 'PROJECT', []);
       baseProjId = JSON.decode(resp)['id'];
 
       resp = await createTemplate('testTemplateTask1',

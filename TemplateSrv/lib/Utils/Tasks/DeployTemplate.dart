@@ -16,20 +16,20 @@ class DeployTemplate extends Task {
   DeployTemplate(this.base, this.request);
 
   Future<String> _create(Template el) async {
-    switch (base.TType) {
+    switch (el.TType) {
       case TemplateType.PROJECT :
       {
         CreateProjectParams params = new CreateProjectParams()
-          ..title = base.Title
-          ..description = base.Description;
+          ..title = el.Title
+          ..description = el.Description;
         CreateProject action = new CreateProject(params);
         return await action.execute();
       } break;
       case TemplateType.TASK :
       {
         CreateTaskParams params = new CreateTaskParams()
-          ..title = base.Title
-          ..description = base.Description;
+          ..title = el.Title
+          ..description = el.Description;
         CreateTask action = new CreateTask(params);
         return await action.execute();
       } break;
@@ -42,7 +42,7 @@ class DeployTemplate extends Task {
       String entityId = await _create(el);
       request.nested_templates.add(entityId);
 
-      if(template.type == TemplateType.PROJECT) {
+      if(template.TType == TemplateType.PROJECT) {
         await _storage.addSubTaskForProject(baseId, entityId);
       } else if (template.type == TemplateType.TASK) {
         await _storage.addSubTaskForTask(baseId, entityId);
