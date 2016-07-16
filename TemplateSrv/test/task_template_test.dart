@@ -116,6 +116,7 @@ main() async {
       var resp = await TestCommon
         .net.Create("$serverUrl/${TestCommon.userUrl}/templates", params);
       print(resp);
+      await new Future.delayed(new Duration(seconds: 1));
     });
 
   });
