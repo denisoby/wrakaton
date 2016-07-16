@@ -60,7 +60,7 @@ class UserService extends Controller {
           };
         await users.save(user);
           //.then((_) => _bus.publish(CreateUser.create(user)));
-        return {'msg' : 'ok', 'userId' : user.id};
+        return _returnOk('userId', user.id);
     } else {
       this.abortBadRequest('wrong data');
     }
