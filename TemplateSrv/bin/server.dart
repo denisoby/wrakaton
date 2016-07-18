@@ -39,7 +39,8 @@ get embla => [
         Srv.UserService),
       Route.all('templates/*', /*base.JwtAuthMiddleware,
         new base.UserGroupFilter(UserGroup.USER.Str),*/
-        Srv.TemplateService)
+        Srv.TemplateService),
+      Route.all('storage/', StorageService)
     )
   ),
   new Srv.ActionSrv(),
