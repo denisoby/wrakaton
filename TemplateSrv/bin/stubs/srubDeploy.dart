@@ -81,6 +81,7 @@ class SubDeploy extends Bootstrapper {
       ..password =  crypto.encryptPassword('wrakaton')
       ..enabled = true
       ..group = UserGroup.toStr(UserGroup.USER)
+      ..data = {}
       ..settings = {};
     _users.save(user);
   }
