@@ -53,24 +53,26 @@ main() async {
     createTemplate(String header,
                    String description,
                    String type,
-                   List<String> assignee) {
+                   List<String> assignee,
+                   Map workflow) {
       Map template = {
         'title' : header,
         'description' : description,
         'type' : type,
         'assignee' : JSON.encode(assignee),
-        'workflow' : JSON.encode({
-          'new' : { 'state_name' : 'new'},
-          'in progress' : {'state_name' : 'in progress'},
-          'done' : {'state_name' : 'done'}
-        })
+        'workflow' : JSON.encode(workflow)
       };
       return TestCommon.net.Create("$serverUrl/templates", template);
     }
 
     test("create template", () async {
       var resp = await createTemplate('testTemplateTask1',
-        'some template of task', 'TASK', ['user_id_1', 'user_id_2']);
+        'some template of task', 'TASK', ['user_id_1', 'user_id_2'],
+        {
+          'new' : { 'state_name' : 'new'},
+          'in progress' : {'state_name' : 'in progress'},
+          'done' : {'state_name' : 'done'}
+        });
       resp = JSON.decode(resp);
       expect(resp, allOf([
         containsPair('id', 1),
@@ -101,11 +103,21 @@ main() async {
       int baseProjId = null;
       int nestedTemplateId = null;
       var resp = await createTemplate('base project template',
-        'some project template', 'PROJECT', []);
+        'some project template', 'PROJECT', [],
+        {
+          'new' : { 'state_name' : 'new'},
+          'in progress' : {'state_name' : 'in progress'},
+          'done' : {'state_name' : 'done'}
+        });
       baseProjId = JSON.decode(resp)['id'];
 
       resp = await createTemplate('testTemplateTask1',
-        'some template of task', 'TASK', ['user_id_1', 'user_id_2']);
+        'some template of task', 'TASK', ['user_id_1', 'user_id_2'],
+        {
+          'new' : { 'state_name' : 'new'},
+          'in progress' : {'state_name' : 'in progress'},
+          'done' : {'state_name' : 'done'}
+        });
 
       nestedTemplateId = JSON.decode(resp)['id'];
       resp = await TestCommon
