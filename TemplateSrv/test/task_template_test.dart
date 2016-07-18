@@ -54,7 +54,7 @@ main() async {
                    String description,
                    String type,
                    List<String> assignee,
-                   Map workflow) {
+                   List workflow) {
       Map template = {
         'title' : header,
         'description' : description,
@@ -65,14 +65,16 @@ main() async {
       return TestCommon.net.Create("$serverUrl/templates", template);
     }
 
+    List defWorkflow = [
+      { 'state_name' : 'new'},
+      {'state_name' : 'in progress'},
+      {'state_name' : 'done'}
+    ];
+
     test("create template", () async {
       var resp = await createTemplate('testTemplateTask1',
         'some template of task', 'TASK', ['user_id_1', 'user_id_2'],
-        {
-          'new' : { 'state_name' : 'new'},
-          'in progress' : {'state_name' : 'in progress'},
-          'done' : {'state_name' : 'done'}
-        });
+        defWorkflow);
       resp = JSON.decode(resp);
       expect(resp, allOf([
         containsPair('id', 1),
@@ -104,20 +106,12 @@ main() async {
       int nestedTemplateId = null;
       var resp = await createTemplate('base project template',
         'some project template', 'PROJECT', [],
-        {
-          'new' : { 'state_name' : 'new'},
-          'in progress' : {'state_name' : 'in progress'},
-          'done' : {'state_name' : 'done'}
-        });
+        defWorkflow);
       baseProjId = JSON.decode(resp)['id'];
 
       resp = await createTemplate('testTemplateTask1',
         'some template of task', 'TASK', ['user_id_1', 'user_id_2'],
-        {
-          'new' : { 'state_name' : 'new'},
-          'in progress' : {'state_name' : 'in progress'},
-          'done' : {'state_name' : 'done'}
-        });
+        defWorkflow);
 
       nestedTemplateId = JSON.decode(resp)['id'];
       resp = await TestCommon

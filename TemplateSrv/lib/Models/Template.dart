@@ -40,13 +40,8 @@ class Template extends Model {
   String get Title => data['title'];
   String get Description => data['description'];
   List get Assignee => data['assignee'];
-  Map<String, Rule> get Workflow {
-    final String key = "workflow";
-    Map<String, Rule> ret = {};
-    for(String state in (data[key] as Map).keys) {
-      ret[state] = new Rule.fromMap(data[key][state]);
-    }
-    return ret;
+  List<Rule> get Workflow {
+    return (data["workflow"] as List).map((Map el) => new Rule.fromMap(el));
   }
 
   Map toJson() {

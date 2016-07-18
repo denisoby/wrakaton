@@ -21,8 +21,7 @@ class RulesService extends Controller with QueryLimit {
        expect(params, 'actions'))
     {
       Rule rule = new Rule()
-        ..state_name = params['state_name']
-        ..actions = JSON.decode(params['actions']);
+        ..state_name = params['state_name'];
       await rules.save(rule);
       return {'msg' : 'ok', 'id' : rule.id};
     } else {

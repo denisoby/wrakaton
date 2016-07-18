@@ -27,7 +27,7 @@ class SubDeploy extends Bootstrapper {
                  String description,
                  String type,
                  List<String> assignee,
-                 Map workflow) {
+                 List workflow) {
     Map template = {
       'title' : header,
       'description' : description,
@@ -69,11 +69,9 @@ class SubDeploy extends Bootstrapper {
   createStubTemplates() async {
     await createTemplate('base project template',
      'some project template', 'PROJECT', [],
-     {
-       'new' : { 'state_name' : 'new'},
-       'in progress' : {'state_name' : 'in progress'},
-       'done' : {'state_name' : 'done'}
-     });
+     [
+       { 'state_name' : 'new'}
+     ]);
   }
 
 }

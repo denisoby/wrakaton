@@ -9,6 +9,8 @@ class Rule extends Model {
   @field List enter_actions;
   @field List leave_actions;
 
+  Rule();
+
   Rule.fromMap(Map params) {
     if(expect(params, 'state_name') &&
        expect(params, 'to_states') &&

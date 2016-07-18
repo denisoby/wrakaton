@@ -21,7 +21,8 @@ class TemplateService extends Controller with QueryLimit {
        expect(params, 'title') &&
        expect(params, 'description') &&
        expect(params, 'assignee') &&
-       expect(params, 'workflow'))
+       expect(params, 'workflow') &&
+       JSON.decode(params['workflow']) is List)
     {
       Template template = new Template()
         ..enabled = true
