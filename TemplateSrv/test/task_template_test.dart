@@ -140,6 +140,14 @@ main() async {
       print('-------------------------');
     });
 
+    test("get all templates", () async {
+      List resp = await TestCommon.net.Get("$serverUrl/templates");
+      expect(resp, isList);
+      print('----full-representation--');
+      print(resp);
+      print('-------------------------');
+    });
+
     test('deploy template', () async {
       Map params = {'template' : 2};
       var resp = await TestCommon
