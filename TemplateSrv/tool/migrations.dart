@@ -53,3 +53,24 @@ class CreateTemplateRequestsTableMigration extends Migration {
     await gateway.drop(table_name);
   }
 }
+
+class CreateRulesTableMigration extends Migration {
+
+  String table_name = 'rules';
+
+  @override
+  Future run(Gateway gateway) async {
+    await gateway.create(table_name, (schema) {
+      schema.id();
+      schema.timestamp('created_at').nullable(false);
+      schema.timestamp('updated_at').nullable(false);
+      schema.string('state_name');
+      schema.json('action');
+    });
+  }
+
+  @override
+  Future rollback(Gateway gateway) async {
+    await gateway.drop(table_name);
+  }
+}
