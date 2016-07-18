@@ -59,7 +59,11 @@ main() async {
         'description' : description,
         'type' : type,
         'assignee' : JSON.encode(assignee),
-        'workflow' : JSON.encode([])
+        'workflow' : JSON.encode({
+          'new' : { 'state_name' : 'new'},
+          'in progress' : {'state_name' : 'in progress'},
+          'done' : {'state_name' : 'done'}
+        })
       };
       return TestCommon.net.Create("$serverUrl/templates", template);
     }
