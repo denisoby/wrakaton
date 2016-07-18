@@ -38,7 +38,7 @@ class Record extends Model {
 
   Map toJson() {
     return {
-      'id' : id,
+      'id' : entity_id,
       'type' : RecordType.fromInt(type).toString(),
       'data' : data
     };
