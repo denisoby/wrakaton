@@ -47,11 +47,13 @@ class SubDeploy extends Bootstrapper {
                              String type,
                              List<String> assignee,
                              List<int> nested,
-                             List workflow) {
+                             List workflow,
+                             [String placeId = null]) {
     Map template = {
       'title' : header,
       'description' : description,
       'type' : type,
+      'place' : placeId,
       'assignee' : JSON.encode(assignee),
       'nested' : JSON.encode(nested),
       'workflow' : JSON.encode(workflow)
@@ -98,7 +100,7 @@ class SubDeploy extends Bootstrapper {
         'some task template', 'TASK', [], [], defWorkflow)
       ];
       await createTemplate('base project template',
-        'some project template', 'PROJECT', [], nested, defWorkflow);
+        'some project template', 'PROJECT', [], nested, defWorkflow, 'megaTeemId');
     }
   }
 

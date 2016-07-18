@@ -32,7 +32,8 @@ main() async {
             Srv.UserService),
           Route.all('templates/*', base.JwtAuthMiddleware,
             new base.UserGroupFilter(UserGroup.USER.Str),
-            Srv.TemplateService)
+            Srv.TemplateService),
+          Route.all('storage/*', Srv.StorageService)
         )
       ),
       new Srv.ActionSrv()
@@ -150,5 +151,26 @@ main() async {
       await new Future.delayed(new Duration(seconds: 1));
     });
 
+  });
+
+  group("storage test: ", () {
+
+    setUpAll(() async {
+      await TestCommon.login();
+    });
+
+    test("forms data", () async {
+      var resp = await TestCommon.net.Create("$serverUrl/storage/forms",
+        { 'id' : 1002, 'data' : JSON.encode({ 'hello' : 'world'}) });
+      resp = await TestCommon.net.Get("$serverUrl/storage/forms/1002");
+      print(resp);
+    });
+
+    test("tasks data", () async {
+      var resp = await TestCommon.net.Create("$serverUrl/storage/tasks",
+        { 'id' : 1002, 'data' : JSON.encode({ 'hello' : 'world'}) });
+      resp = await TestCommon.net.Get("$serverUrl/storage/tasks/1002");
+      print(resp);
+    });
   });
 }

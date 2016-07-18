@@ -21,8 +21,8 @@ class RecordType {
   static RecordType fromStr(String val)
     => values.firstWhere((RecordType el) => el._value == val);
 
-  static const TASK = const RecordType._internal('TASK');
-  static const FORMS = const RecordType._internal('FORMS');
+  static const TASK = const RecordType._internal('tasks');
+  static const FORMS = const RecordType._internal('forms');
 
   static final List<RecordType> values = [
     RecordType.TASK,
@@ -32,6 +32,7 @@ class RecordType {
 
 class Record extends Model {
   @field int id;
+  @field int entity_id;
   @field int type;
   @field Map data;
 
@@ -47,5 +48,40 @@ class Record extends Model {
 class StorageService extends Controller with QueryLimit {
   final Repository<Record> records;
 
+  final Set urls = new Set.from(['tasks', 'forms']);
+
   StorageService(this.records);
+
+  @Post('/:type') createFromsData(Input args, {String type}) async {
+    Map params = args.body;
+    Record rec = new Record()
+      ..type = RecordType.fromStr(type).toInt()
+      ..entity_id = int.parse(params['id'])
+      ..data = JSON.decode(params['data']);
+    return await records.save(rec);
+  }
+
+  @Get('/:type/:id') getFormsData({String id, String type}) {
+    return records.where((el)
+      => el.entity_id == int.parse(id) &&
+         RecordType.fromInt(el.type) == RecordType.fromStr(type))
+          .limit(1).first();
+  }
+
+  /*@Post('/tasks') createTaksData(Input args) async {
+    Map params = args.body;
+    Record rec = new Record()
+      ..type = RecordType.TASK.toInt()
+      ..entity_id = params['id']
+      ..data = params['data'];
+    return await records.save(rec);
+  }
+
+  @Get('/tasks/:id') getTasksData({String id}) {
+    return records.where((el)
+      => el.entity_id == int.parse(id) &&
+         RecordType.fromInt(el.type) == RecordType.TASK)
+          .limit(1).first();
+  }*/
+
 }
