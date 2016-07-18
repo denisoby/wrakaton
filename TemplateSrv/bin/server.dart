@@ -32,15 +32,12 @@ get embla => [
       LoggerMiddleware, RemoveTrailingSlashMiddleware,
       Route.post('login/', base.JwtLoginMiddleware),
       base.InputParserMiddleware,
-      Route.all('users/*', base.JwtAuthMiddleware,
-        new base.UserGroupFilter(UserGroup.USER.Str), base.UserIdFilter,
+      Route.all('users/*', /*base.JwtAuthMiddleware,
+        new base.UserGroupFilter(UserGroup.USER.Str), base.UserIdFilter,*/
         Srv.UserService),
-      Route.all('templates/*', base.JwtAuthMiddleware,
-        new base.UserGroupFilter(UserGroup.USER.Str),
-        Srv.TemplateService),
-      Route.all('rules/*', base.JwtAuthMiddleware,
-        new base.UserGroupFilter(UserGroup.USER.Str),
-        Srv.RulesService)
+      Route.all('templates/*', /*base.JwtAuthMiddleware,
+        new base.UserGroupFilter(UserGroup.USER.Str),*/
+        Srv.TemplateService)
     )
   ),
   new Srv.ActionSrv()
