@@ -1,0 +1,15 @@
+name: 'template_client'
+version: 0.0.1
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dependencies:
+  stagehand:  any
+  SemplexClientCmn:
+    git: https://github.com/vgordievskiy/ClientCommon.git
+
+#dependency_overrides:
+
+dev_dependencies:
+  test: any
