@@ -9,6 +9,25 @@ import 'package:template_srv/Services/UsersService.dart' show User, UserGroup;
 import 'dart:convert';
 
 class SubDeploy extends Bootstrapper {
+  static List defWorkflow =  [
+     { 'state_name' : 'New', 'to_states' : [1, 2],
+       'enter_actions' : [],
+       'leave_actions' : []
+     },
+     { 'state_name' : 'In progress', 'to_states' : [0, 2, 3],
+       'enter_actions' : [],
+       'leave_actions' : []
+     },
+     { 'state_name' : 'Wait', 'to_states' : [1],
+       'enter_actions' : [],
+       'leave_actions' : []
+     },
+     { 'state_name' : 'Done', 'to_states' : [0],
+       'enter_actions' : [],
+       'leave_actions' : []
+     },
+  ];
+
   final Gateway gateway;
   Repository<User> _users;
   Repository<Template> _templates;
@@ -68,10 +87,7 @@ class SubDeploy extends Bootstrapper {
 
   createStubTemplates() async {
     await createTemplate('base project template',
-     'some project template', 'PROJECT', [],
-     [
-       { 'state_name' : 'new'}
-     ]);
+     'some project template', 'PROJECT', [], defWorkflow);
   }
 
 }
