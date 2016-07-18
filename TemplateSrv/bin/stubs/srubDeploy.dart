@@ -42,12 +42,12 @@ class SubDeploy extends Bootstrapper {
     createStubTemplates();
   }
 
-  createTemplate(String header,
-                 String description,
-                 String type,
-                 List<String> assignee,
-                 List<int> nested,
-                 List workflow) {
+  Future<int> createTemplate(String header,
+                             String description,
+                             String type,
+                             List<String> assignee,
+                             List<int> nested,
+                             List workflow) {
     Map template = {
       'title' : header,
       'description' : description,
@@ -59,7 +59,7 @@ class SubDeploy extends Bootstrapper {
     return _createTemplate(template);
   }
 
-  Future _createTemplate(Map params) async {
+  Future<int> _createTemplate(Map params) async {
     Template template = new Template()
       ..enabled = true
       ..TType = TemplateType.fromStr(params['type'])
@@ -75,6 +75,7 @@ class SubDeploy extends Bootstrapper {
       template.nested = [];
     }
     await _templates.save(template);
+    return template.id;
   }
 
   createStubUser() async {
@@ -89,10 +90,16 @@ class SubDeploy extends Bootstrapper {
   }
 
   createStubTemplates() async {
-    await createTemplate('base task template',
-     'some task template', 'TASK', [], [], defWorkflow);
-    await createTemplate('base project template',
-     'some project template', 'PROJECT', [], [1], defWorkflow);
+    {
+      List<int> nested = [
+      await createTemplate('base task template',
+        'some task template', 'TASK', [], [], defWorkflow),
+      await createTemplate('base task template',
+        'some task template', 'TASK', [], [], defWorkflow)
+      ];
+      await createTemplate('base project template',
+        'some project template', 'PROJECT', [], nested, defWorkflow);
+    }
   }
 
 }
