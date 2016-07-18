@@ -61,7 +61,7 @@ class TemplateUtils {
     return getTemplates().where((el) => base.nested.contains(el.id)).get();
   }
 
-  Future<Map> deepSerialize(Template template) async {
+  static Future<Map> deepSerialize(Template template) async {
     final String key = 'nested';
     Map ret = template.toJson();
     ret[key] = [];

@@ -58,7 +58,12 @@ class TemplateService extends Controller with QueryLimit {
     return query.get().toList();
   }
 
-  @Get('/:id') getTemplate({String id}) {
+  @Get('/:id') getTemplate(Input args, {String id}) {
+    Map params = args.body;
+    if(expect(params, 'deep')) {
+      return templates.find(int.parse(id))
+        .then((Template el) => TemplateUtils.deepSerialize(el));
+    }
     return templates.find(int.parse(id));
   }
 
@@ -70,7 +75,7 @@ class TemplateService extends Controller with QueryLimit {
           templates.where((el) => items.contains(el.id));
         int count = await query.count();
         if(count == items.length) {
-          Template template = await getTemplate(id : id);
+          Template template = await getTemplate(args, id : id);
           template.nested = items;
           await templates.save(template);
         }
