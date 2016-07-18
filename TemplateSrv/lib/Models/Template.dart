@@ -60,4 +60,15 @@ class TemplateUtils {
     if(base.nested.isEmpty) return new Stream.empty();
     return getTemplates().where((el) => base.nested.contains(el.id)).get();
   }
+
+  Future<Map> deepSerialize(Template template) async {
+    final String key = 'nested';
+    Map ret = template.toJson();
+    ret[key] = [];
+    await for(Template el in getNested(template)) {
+        Map elRepr = await deepSerialize(el);
+        (ret[key] as List).add(elRepr);
+    }
+    return ret;
+  }
 }
