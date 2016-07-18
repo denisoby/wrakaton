@@ -67,21 +67,4 @@ class StorageService extends Controller with QueryLimit {
          RecordType.fromInt(el.type) == RecordType.fromStr(type))
           .limit(1).first();
   }
-
-  /*@Post('/tasks') createTaksData(Input args) async {
-    Map params = args.body;
-    Record rec = new Record()
-      ..type = RecordType.TASK.toInt()
-      ..entity_id = params['id']
-      ..data = params['data'];
-    return await records.save(rec);
-  }
-
-  @Get('/tasks/:id') getTasksData({String id}) {
-    return records.where((el)
-      => el.entity_id == int.parse(id) &&
-         RecordType.fromInt(el.type) == RecordType.TASK)
-          .limit(1).first();
-  }*/
-
 }
