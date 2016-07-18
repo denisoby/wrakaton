@@ -53,6 +53,7 @@ class StorageService extends Controller with QueryLimit {
   StorageService(this.records);
 
   @Post('/:type') createFromsData(Input args, {String type}) async {
+    if(!urls.contains(type)) this.abortNotFound();
     Map params = args.body;
     Record rec = new Record()
       ..type = RecordType.fromStr(type).toInt()
@@ -62,6 +63,7 @@ class StorageService extends Controller with QueryLimit {
   }
 
   @Get('/:type/:id') getFormsData({String id, String type}) {
+    if(!urls.contains(type)) this.abortNotFound();
     return records.where((el)
       => el.entity_id == int.parse(id) &&
          RecordType.fromInt(el.type) == RecordType.fromStr(type))
