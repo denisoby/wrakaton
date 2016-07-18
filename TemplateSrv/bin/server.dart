@@ -9,6 +9,8 @@ import 'package:srv_base/Models/Users.dart';
 export 'package:embla/application.dart';
 import 'package:embla/bootstrap.dart' as embla_bootstrap;
 
+import 'stubs/srubDeploy.dart';
+
 Map config = {
   'port' : 9090
 };
@@ -40,5 +42,6 @@ get embla => [
         Srv.TemplateService)
     )
   ),
-  new Srv.ActionSrv()
+  new Srv.ActionSrv(),
+  new SubDeploy(new Gateway(driver))
 ];
