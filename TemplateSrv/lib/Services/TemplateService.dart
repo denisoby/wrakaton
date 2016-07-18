@@ -20,7 +20,8 @@ class TemplateService extends Controller with QueryLimit {
     if(expect(params, 'type') &&
        expect(params, 'title') &&
        expect(params, 'description') &&
-       expect(params, 'assignee'))
+       expect(params, 'assignee') &&
+       expect(params, 'workflow'))
     {
       Template template = new Template()
         ..enabled = true
@@ -28,7 +29,8 @@ class TemplateService extends Controller with QueryLimit {
         ..data = {
           'title' : params['title'],
           'description' : params['description'],
-          'assignee' : JSON.decode(params['assignee'])
+          'assignee' : JSON.decode(params['assignee']),
+          'workflow' : JSON.decode(params['workflow'])
         };
       if(params.containsKey('nested')) {
         template.nested = JSON.decode(params['nested']);

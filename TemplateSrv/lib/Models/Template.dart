@@ -36,9 +36,10 @@ class Template extends Model {
   TemplateType get TType => TemplateType.fromInt(type);
   set TType(TemplateType val) { type = val.toInt(); }
 
-  get Title => data['title'];
-  get Description => data['description'];
-  get Assignee => data['assignee'];
+  String get Title => data['title'];
+  String get Description => data['description'];
+  List get Assignee => data['assignee'];
+  List get Workflow => data['workflow'];
 
   Map toJson() {
     return {
