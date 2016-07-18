@@ -60,7 +60,7 @@ class TemplateService extends Controller with QueryLimit {
 
   @Get('/:id') getTemplate(Input args, {String id}) {
     Map params = args.body;
-    if(expect(params, 'deep')) {
+    if(expect(params, 'full')) {
       return templates.find(int.parse(id))
         .then((Template el) => TemplateUtils.deepSerialize(el));
     }

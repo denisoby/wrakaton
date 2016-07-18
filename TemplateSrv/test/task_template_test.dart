@@ -111,6 +111,15 @@ main() async {
       expect(resp['nested'], equals([nestedTemplateId]));
     });
 
+    test("get deep reprezentation", () async {
+      Map resp = await TestCommon.net.Get("$serverUrl/templates/2?full");
+      expect(resp['nested'], isList);
+      for(var el in resp['nested']) {
+        expect(el, isMap);
+        expect(el, contains('id'));
+      }
+    });
+
     test('deploy template', () async {
       Map params = {'template' : 2};
       var resp = await TestCommon
