@@ -9,6 +9,8 @@ import 'package:srv_base/Models/Users.dart';
 export 'package:embla/application.dart';
 import 'package:embla/bootstrap.dart' as embla_bootstrap;
 
+import 'stubs/srubDeploy.dart';
+
 Map config = {
   'port' : 9090
 };
@@ -32,13 +34,15 @@ get embla => [
       LoggerMiddleware, RemoveTrailingSlashMiddleware,
       Route.post('login/', base.JwtLoginMiddleware),
       base.InputParserMiddleware,
-      Route.all('users/*', base.JwtAuthMiddleware,
-        new base.UserGroupFilter(UserGroup.USER.Str), base.UserIdFilter,
+      Route.all('users/*', /*base.JwtAuthMiddleware,
+        new base.UserGroupFilter(UserGroup.USER.Str), base.UserIdFilter,*/
         Srv.UserService),
-      Route.all('templates/*', base.JwtAuthMiddleware,
-        new base.UserGroupFilter(UserGroup.USER.Str),
-        Srv.TemplateService)
+      Route.all('templates/*', /*base.JwtAuthMiddleware,
+        new base.UserGroupFilter(UserGroup.USER.Str),*/
+        Srv.TemplateService),
+      Route.all('storage/*', Srv.StorageService)
     )
   ),
-  new Srv.ActionSrv()
+  new Srv.ActionSrv(),
+  new SubDeploy(new Gateway(driver))
 ];

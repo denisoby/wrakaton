@@ -17,6 +17,8 @@ import 'Models/Template.dart';
 import 'Models/TemplateRequest.dart';
 import 'package:logging/logging.dart';
 import 'package:stack_trace/stack_trace.dart';
+export 'Services/StorageService.dart';
+export 'Services/RulesService.dart';
 export 'Services/TemplateService.dart';
 export 'Services/UsersService.dart';
 

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:di/type_literal.dart';
 import 'package:embla_trestle/embla_trestle.dart';
 import 'package:srv_base/Srv.dart';
+import 'package:template_srv/Models/Rule.dart';
 
 class TemplateType {
   final _value;
@@ -36,9 +37,12 @@ class Template extends Model {
   TemplateType get TType => TemplateType.fromInt(type);
   set TType(TemplateType val) { type = val.toInt(); }
 
-  get Title => data['title'];
-  get Description => data['description'];
-  get Assignee => data['assignee'];
+  String get Title => data['title'];
+  String get Description => data['description'];
+  List get Assignee => data['assignee'];
+  List<Rule> get Workflow {
+    return (data["workflow"] as List).map((Map el) => new Rule.fromMap(el));
+  }
 
   Map toJson() {
     return {
@@ -59,5 +63,16 @@ class TemplateUtils {
   static Stream<Template> getNested(Template base) {
     if(base.nested.isEmpty) return new Stream.empty();
     return getTemplates().where((el) => base.nested.contains(el.id)).get();
+  }
+
+  static Future<Map> deepSerialize(Template template) async {
+    final String key = 'nested';
+    Map ret = template.toJson();
+    ret[key] = [];
+    await for(Template el in getNested(template)) {
+        Map elRepr = await deepSerialize(el);
+        (ret[key] as List).add(elRepr);
+    }
+    return ret;
   }
 }

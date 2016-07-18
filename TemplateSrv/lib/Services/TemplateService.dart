@@ -20,7 +20,9 @@ class TemplateService extends Controller with QueryLimit {
     if(expect(params, 'type') &&
        expect(params, 'title') &&
        expect(params, 'description') &&
-       expect(params, 'assignee'))
+       expect(params, 'assignee') &&
+       expect(params, 'workflow') &&
+       JSON.decode(params['workflow']) is List)
     {
       Template template = new Template()
         ..enabled = true
@@ -28,7 +30,8 @@ class TemplateService extends Controller with QueryLimit {
         ..data = {
           'title' : params['title'],
           'description' : params['description'],
-          'assignee' : JSON.decode(params['assignee'])
+          'assignee' : JSON.decode(params['assignee']),
+          'workflow' : JSON.decode(params['workflow'])
         };
       if(params.containsKey('nested')) {
         template.nested = JSON.decode(params['nested']);
@@ -58,7 +61,12 @@ class TemplateService extends Controller with QueryLimit {
     return query.get().toList();
   }
 
-  @Get('/:id') getTemplate({String id}) {
+  @Get('/:id') getTemplate(Input args, {String id}) {
+    Map params = args.body;
+    if(expect(params, 'full')) {
+      return templates.find(int.parse(id))
+        .then((Template el) => TemplateUtils.deepSerialize(el));
+    }
     return templates.find(int.parse(id));
   }
 
@@ -70,7 +78,7 @@ class TemplateService extends Controller with QueryLimit {
           templates.where((el) => items.contains(el.id));
         int count = await query.count();
         if(count == items.length) {
-          Template template = await getTemplate(id : id);
+          Template template = await getTemplate(args, id : id);
           template.nested = items;
           await templates.save(template);
         }

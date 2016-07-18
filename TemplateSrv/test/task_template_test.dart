@@ -32,7 +32,8 @@ main() async {
             Srv.UserService),
           Route.all('templates/*', base.JwtAuthMiddleware,
             new base.UserGroupFilter(UserGroup.USER.Str),
-            Srv.TemplateService)
+            Srv.TemplateService),
+          Route.all('storage/*', Srv.StorageService)
         )
       ),
       new Srv.ActionSrv()
@@ -53,19 +54,28 @@ main() async {
     createTemplate(String header,
                    String description,
                    String type,
-                   List<String> assignee) {
+                   List<String> assignee,
+                   List workflow) {
       Map template = {
         'title' : header,
         'description' : description,
         'type' : type,
-        'assignee' : JSON.encode(assignee)
+        'assignee' : JSON.encode(assignee),
+        'workflow' : JSON.encode(workflow)
       };
       return TestCommon.net.Create("$serverUrl/templates", template);
     }
 
+    List defWorkflow = [
+      { 'state_name' : 'new'},
+      {'state_name' : 'in progress'},
+      {'state_name' : 'done'}
+    ];
+
     test("create template", () async {
       var resp = await createTemplate('testTemplateTask1',
-        'some template of task', 'TASK', ['user_id_1', 'user_id_2']);
+        'some template of task', 'TASK', ['user_id_1', 'user_id_2'],
+        defWorkflow);
       resp = JSON.decode(resp);
       expect(resp, allOf([
         containsPair('id', 1),
@@ -96,11 +106,13 @@ main() async {
       int baseProjId = null;
       int nestedTemplateId = null;
       var resp = await createTemplate('base project template',
-        'some project template', 'PROJECT', []);
+        'some project template', 'PROJECT', [],
+        defWorkflow);
       baseProjId = JSON.decode(resp)['id'];
 
       resp = await createTemplate('testTemplateTask1',
-        'some template of task', 'TASK', ['user_id_1', 'user_id_2']);
+        'some template of task', 'TASK', ['user_id_1', 'user_id_2'],
+        defWorkflow);
 
       nestedTemplateId = JSON.decode(resp)['id'];
       resp = await TestCommon
@@ -111,6 +123,26 @@ main() async {
       expect(resp['nested'], equals([nestedTemplateId]));
     });
 
+    test("get deep reprezentation", () async {
+      Map resp = await TestCommon.net.Get("$serverUrl/templates/2?full");
+      expect(resp['nested'], isList);
+      for(var el in resp['nested']) {
+        expect(el, isMap);
+        expect(el, contains('id'));
+      }
+      print('----full-representation--');
+      print(resp);
+      print('-------------------------');
+    });
+
+    test("get all templates", () async {
+      List resp = await TestCommon.net.Get("$serverUrl/templates");
+      expect(resp, isList);
+      print('----full-representation--');
+      print(resp);
+      print('-------------------------');
+    });
+
     test('deploy template', () async {
       Map params = {'template' : 2};
       var resp = await TestCommon
@@ -119,5 +151,26 @@ main() async {
       await new Future.delayed(new Duration(seconds: 1));
     });
 
+  });
+
+  group("storage test: ", () {
+
+    setUpAll(() async {
+      await TestCommon.login();
+    });
+
+    test("forms data", () async {
+      var resp = await TestCommon.net.Create("$serverUrl/storage/forms",
+        { 'id' : 1002, 'data' : JSON.encode({ 'hello' : 'world'}) });
+      resp = await TestCommon.net.Get("$serverUrl/storage/forms/1002");
+      print(resp);
+    });
+
+    test("tasks data", () async {
+      var resp = await TestCommon.net.Create("$serverUrl/storage/tasks",
+        { 'id' : 1002, 'data' : JSON.encode({ 'hello' : 'world'}) });
+      resp = await TestCommon.net.Get("$serverUrl/storage/tasks/1002");
+      print(resp);
+    });
   });
 }

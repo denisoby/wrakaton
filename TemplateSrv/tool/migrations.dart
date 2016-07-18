@@ -5,7 +5,8 @@ import 'package:srv_base/Tools/migrations.dart';
 final migrations = [
   CreateUsersTableMigration,
   CreateTemplatesTableMigration,
-  CreateTemplateRequestsTableMigration
+  CreateTemplateRequestsTableMigration,
+  CreateStorageTableMigration
 ].toSet();
 
 class CreateTemplatesTableMigration extends Migration {
@@ -44,6 +45,28 @@ class CreateTemplateRequestsTableMigration extends Migration {
       schema.int('user_id').nullable(false);
       schema.int('base_template_id').nullable(false);
       schema.json('nested_templates');
+      schema.json('data');
+    });
+  }
+
+  @override
+  Future rollback(Gateway gateway) async {
+    await gateway.drop(table_name);
+  }
+}
+
+class CreateStorageTableMigration extends Migration {
+
+  String table_name = 'records';
+
+  @override
+  Future run(Gateway gateway) async {
+    await gateway.create(table_name, (schema) {
+      schema.id();
+      schema.timestamp('created_at').nullable(false);
+      schema.timestamp('updated_at').nullable(false);
+      schema.int('entity_id');
+      schema.int('type');
       schema.json('data');
     });
   }
