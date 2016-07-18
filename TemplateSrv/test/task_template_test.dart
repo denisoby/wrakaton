@@ -135,6 +135,9 @@ main() async {
         expect(el, isMap);
         expect(el, contains('id'));
       }
+      print('----full-representation--');
+      print(resp);
+      print('-------------------------');
     });
 
     test('deploy template', () async {
