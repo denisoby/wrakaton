@@ -1,15 +1,14 @@
-name: 'template_client'
+name: TemplateClient
+description: A starting point for Dart libraries or applications.
 version: 0.0.1
+#author: Denis Obydennykh <email@example.com>
+#homepage: https://www.example.com
 
 environment:
   sdk: '>=1.0.0 <2.0.0'
 
-dependencies:
-  stagehand:  any
-  SemplexClientCmn:
-    git: https://github.com/vgordievskiy/ClientCommon.git
-
-#dependency_overrides:
+#dependencies:
+#  lib_name: any
 
 dev_dependencies:
-  test: any
+  test: '>=0.12.0 <0.13.0'
