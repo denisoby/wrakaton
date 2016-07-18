@@ -64,11 +64,9 @@ class StorageService extends Controller with QueryLimit {
 
   @Get('/:type/:id') getFormsData({String id, String type}) async {
     if(!urls.contains(type)) this.abortNotFound();
+    final int queryType = RecordType.fromStr(type).toInt();
     return records.where((el)
-      => el.entity_id == int.parse(id) &&
-         RecordType.fromInt(el.type) == RecordType.fromStr(type))
-          .limit(1).first().catchError((StateError err){
-            this.abortNotFound();
-          });
+      => el.entity_id == int.parse(id) && el.type == queryType)
+        .get().first.catchError((StateError err){ this.abortNotFound();});
   }
 }
