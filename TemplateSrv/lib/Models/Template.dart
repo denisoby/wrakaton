@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:di/type_literal.dart';
 import 'package:embla_trestle/embla_trestle.dart';
 import 'package:srv_base/Srv.dart';
+import 'package:template_srv/Models/Rule.dart';
 
 class TemplateType {
   final _value;
@@ -39,7 +40,14 @@ class Template extends Model {
   String get Title => data['title'];
   String get Description => data['description'];
   List get Assignee => data['assignee'];
-  List get Workflow => data['workflow'];
+  Map<String, Rule> get Workflow {
+    final String key = "workflow";
+    Map<String, Rule> ret = {};
+    for(String state in (data[key] as Map).keys) {
+      ret[state] = new Rule.fromMap(data[key][state]);
+    }
+    return ret;
+  }
 
   Map toJson() {
     return {

@@ -54,7 +54,7 @@ class CreateTemplateRequestsTableMigration extends Migration {
   }
 }
 
-class CreateRulesTableMigration extends Migration {
+/*class CreateRulesTableMigration extends Migration {
 
   String table_name = 'rules';
 
@@ -73,4 +73,4 @@ class CreateRulesTableMigration extends Migration {
   Future rollback(Gateway gateway) async {
     await gateway.drop(table_name);
   }
-}
+}*/
