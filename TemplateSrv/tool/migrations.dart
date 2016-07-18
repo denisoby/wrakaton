@@ -65,7 +65,7 @@ class CreateRulesTableMigration extends Migration {
       schema.timestamp('created_at').nullable(false);
       schema.timestamp('updated_at').nullable(false);
       schema.string('state_name');
-      schema.json('action');
+      schema.json('actions');
     });
   }
 
