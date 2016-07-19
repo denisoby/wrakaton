@@ -134,7 +134,9 @@ class SubDeploy extends Bootstrapper {
           'wroot_id' : 1,
           'wid' : 1,
           'tmpl_root' : 12,
-          'tmpl_sub' : 12
+          'tmpl_sub' : 12,
+          'tmpl_root_ref_name' : 'hr',
+          'tmpl_sub_ref_name' : 'hr'
         };
       await _records.save(item);
     }
@@ -146,7 +148,9 @@ class SubDeploy extends Bootstrapper {
           'wroot_id' : 1,
           'wid' : 2,
           'tmpl_root' : 12,
-          'tmpl_sub' : 3
+          'tmpl_sub' : 3,
+          'tmpl_root_ref_name' : 'hr',
+          'tmpl_sub_ref_name' : 'hr'
         };
       await _records.save(item);
     }
@@ -158,7 +162,9 @@ class SubDeploy extends Bootstrapper {
           'wroot_id' : 1,
           'wid' : 3,
           'tmpl_root' : 12,
-          'tmpl_sub' : 6
+          'tmpl_sub' : 6,
+          'tmpl_root_ref_name' : 'hr',
+          'tmpl_sub_ref_name' : 'hr'
         };
       await _records.save(item);
     }
@@ -170,7 +176,9 @@ class SubDeploy extends Bootstrapper {
           'wroot_id' : 1,
           'wid' : 4,
           'tmpl_root' : 12,
-          'tmpl_sub' : 6
+          'tmpl_sub' : 6,
+          'tmpl_root_ref_name' : 'hr',
+          'tmpl_sub_ref_name' : 'hr'
         };
       await _records.save(item);
     }
@@ -182,7 +190,9 @@ class SubDeploy extends Bootstrapper {
           'wroot_id' : 1,
           'wid' : 5,
           'tmpl_root' : 12,
-          'tmpl_sub' : 8
+          'tmpl_sub' : 8,
+          'tmpl_root_ref_name' : 'hr',
+          'tmpl_sub_ref_name' : 'hr'
         };
       await _records.save(item);
     }
@@ -194,7 +204,9 @@ class SubDeploy extends Bootstrapper {
           'wroot_id' : 1,
           'wid' : 6,
           'tmpl_root' : 12,
-          'tmpl_sub' : 10
+          'tmpl_sub' : 10,
+          'tmpl_root_ref_name' : 'hr',
+          'tmpl_sub_ref_name' : 'hr'
         };
       await _records.save(item);
     }
@@ -356,6 +368,7 @@ class SubDeploy extends Bootstrapper {
       'title' : 'Collect data %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'ticket',
       'place' : '',
       'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
@@ -397,6 +410,7 @@ class SubDeploy extends Bootstrapper {
       'title' : 'Workspace preparation: %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'it',
       'place' : '',
       'assignee' : JSON.encode(['%engineer%']),
       'nested' : JSON.encode([]),
@@ -423,6 +437,7 @@ class SubDeploy extends Bootstrapper {
       'title' : 'HR onboarding: %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'docs',
       'place' : '',
       'assignee' : JSON.encode(['%hrmanager%']),
       'nested' : JSON.encode([]),
@@ -449,6 +464,7 @@ class SubDeploy extends Bootstrapper {
       'title' : 'Buddy adoption: %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'buddy',
       'place' : '',
       'assignee' : JSON.encode(['%buddyguy%']),
       'nested' : JSON.encode([]),
@@ -479,6 +495,7 @@ class SubDeploy extends Bootstrapper {
       'title' : 'Publish %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'hr_welcome_msg',
       'place' : '',
       'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
