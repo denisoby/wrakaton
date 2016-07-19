@@ -94,12 +94,14 @@ class SubDeploy extends Bootstrapper {
   createStubTemplates() async {
     {
       List<int> nested = [
-      await createTemplate('base task template',
+      await createTemplate('subTemplate1 %title%',
         'some task template', 'TASK', [], [], defWorkflow),
-      await createTemplate('base task template',
+      await createTemplate('subTemplate2 %title%',
+        'some task template', 'TASK', [], [], defWorkflow),
+      await createTemplate('subTemplate3 %title%',
         'some task template', 'TASK', [], [], defWorkflow)
       ];
-      await createTemplate('base project template',
+      await createTemplate('base project template %title%',
         'some project template', 'PROJECT', [], nested, defWorkflow, 'megaTeemId');
     }
   }

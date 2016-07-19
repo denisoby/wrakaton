@@ -13,7 +13,7 @@ import 'package:embla/bootstrap.dart' as embla_bootstrap;
 import 'stubs/srubDeploy.dart';
 
 Map config = {
-  'port' : 9090
+  'port' : 8001
 };
 
 main(List<String> arguments, SendPort sendExitCommandPort) async {
