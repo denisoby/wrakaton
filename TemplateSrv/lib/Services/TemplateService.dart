@@ -58,7 +58,43 @@ class TemplateService extends Controller with QueryLimit {
         query = limit(query, count);
       }
     }
-    return query.get().toList();
+    if(expect(params, 'full')) {
+      return query.get().toList().then((List<Template> items) async {
+        List<Map> ret = [];
+        for(Template el in items) {
+          ret.add(await TemplateUtils.deepSerialize(el));
+        }
+        return ret;
+      });
+    } else {
+      return query.get().toList();
+    }
+  }
+
+  @Get('/projects') getAllProjects(Input args) {
+    Map params = args.body;
+    RepositoryQuery<Template> query =
+      templates.where((el) => el.enabled == true && el.type == TemplateType.PROJECT.toInt());
+    if(params.containsKey('count')) {
+      final int count = int.parse(params['count']);
+      if(params.containsKey('page')) {
+        final int page = int.parse(params['page']);
+        query = limit(query, count, page);
+      } else {
+        query = limit(query, count);
+      }
+    }
+    if(expect(params, 'full')) {
+      return query.get().toList().then((List<Template> items) async {
+        List<Map> ret = [];
+        for(Template el in items) {
+          ret.add(await TemplateUtils.deepSerialize(el));
+        }
+        return ret;
+      });
+    } else {
+      return query.get().toList();
+    }
   }
 
   @Get('/ref/:id') getTemplateByRef(Input args, {String id}) {
