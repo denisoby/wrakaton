@@ -128,13 +128,73 @@ class SubDeploy extends Bootstrapper {
   createTasksData() async {
     {
       Record item = new Record()
-        ..entity_id = 28481
+        ..entity_id = 1
+        ..type = RecordType.TASKS.toInt()
+        ..data = {
+          'wroot_id' : 1,
+          'wid' : 1,
+          'tmpl_root' : 12,
+          'tmpl_sub' : 12
+        };
+      await _records.save(item);
+    }
+    {
+      Record item = new Record()
+        ..entity_id = 2
         ..type = RecordType.TASKS.toInt()
         ..data = {
           'wroot_id' : 1,
           'wid' : 2,
-          'tmpl_root' : 5,
-          'tmpl_sub' : 2
+          'tmpl_root' : 12,
+          'tmpl_sub' : 3
+        };
+      await _records.save(item);
+    }
+    {
+      Record item = new Record()
+        ..entity_id = 3
+        ..type = RecordType.TASKS.toInt()
+        ..data = {
+          'wroot_id' : 1,
+          'wid' : 3,
+          'tmpl_root' : 12,
+          'tmpl_sub' : 6
+        };
+      await _records.save(item);
+    }
+    {
+      Record item = new Record()
+        ..entity_id = 4
+        ..type = RecordType.TASKS.toInt()
+        ..data = {
+          'wroot_id' : 1,
+          'wid' : 4,
+          'tmpl_root' : 12,
+          'tmpl_sub' : 6
+        };
+      await _records.save(item);
+    }
+    {
+      Record item = new Record()
+        ..entity_id = 5
+        ..type = RecordType.TASKS.toInt()
+        ..data = {
+          'wroot_id' : 1,
+          'wid' : 5,
+          'tmpl_root' : 12,
+          'tmpl_sub' : 8
+        };
+      await _records.save(item);
+    }
+    {
+      Record item = new Record()
+        ..entity_id = 6
+        ..type = RecordType.TASKS.toInt()
+        ..data = {
+          'wroot_id' : 1,
+          'wid' : 6,
+          'tmpl_root' : 12,
+          'tmpl_sub' : 10
         };
       await _records.save(item);
     }
