@@ -40,6 +40,7 @@ class SubDeploy extends Bootstrapper {
   init() {
     _users = new Repository<User>(gateway);
     _templates = new Repository<Template>(gateway);
+    _records = new Repository<Record>(gateway);
     createStubUser();
     createFormData();
     createStub_Article_Templates();
