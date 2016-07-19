@@ -41,6 +41,7 @@ class SubDeploy extends Bootstrapper {
     _users = new Repository<User>(gateway);
     _templates = new Repository<Template>(gateway);
     _records = new Repository<Record>(gateway);
+    createTasksData();
     createStubUser();
     createFormData();
     createStub_Article_Templates();
@@ -125,18 +126,17 @@ class SubDeploy extends Bootstrapper {
   }
 
   createTasksData() async {
-    { /*
+    {
       Record item = new Record()
         ..entity_id = 28481
         ..type = RecordType.TASKS.toInt()
         ..data = {
-          'wroot_id' : wrikeRootId,
-          'wid' : wrikeTaskId,
-          'tmpl_root' : tmpl_root_ref_name,
-          'tmpl_sub' : tmpl_sub_ref_name
+          'wroot_id' : 1,
+          'wid' : 2,
+          'tmpl_root' : 5,
+          'tmpl_sub' : 2
         };
       await _records.save(item);
-      */
     }
   }
 
