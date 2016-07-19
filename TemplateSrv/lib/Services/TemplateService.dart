@@ -61,6 +61,15 @@ class TemplateService extends Controller with QueryLimit {
     return query.get().toList();
   }
 
+  @Get('/ref/:id') getTemplateByRef(Input args, {String id}) {
+    Map params = args.body;
+    if(expect(params, 'full')) {
+      return templates.where((el) => el.ref_name == id).get().first
+        .then((Template el) => TemplateUtils.deepSerialize(el));
+    }
+    return templates.where((el) => el.ref_name == id).get().first;
+  }
+
   @Get('/:id') getTemplate(Input args, {String id}) {
     Map params = args.body;
     if(expect(params, 'full')) {
