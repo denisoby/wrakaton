@@ -164,7 +164,7 @@ class SubDeploy extends Bootstrapper {
           'tmpl_root' : 12,
           'tmpl_sub' : 6,
           'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'hr'
+          'tmpl_sub_ref_name' : 'it'
         };
       await _records.save(item);
     }
@@ -178,7 +178,7 @@ class SubDeploy extends Bootstrapper {
           'tmpl_root' : 12,
           'tmpl_sub' : 6,
           'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'hr'
+          'tmpl_sub_ref_name' : 'docs'
         };
       await _records.save(item);
     }
@@ -192,7 +192,7 @@ class SubDeploy extends Bootstrapper {
           'tmpl_root' : 12,
           'tmpl_sub' : 8,
           'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'hr'
+          'tmpl_sub_ref_name' : 'buddy'
         };
       await _records.save(item);
     }
@@ -206,7 +206,7 @@ class SubDeploy extends Bootstrapper {
           'tmpl_root' : 12,
           'tmpl_sub' : 10,
           'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'hr'
+          'tmpl_sub_ref_name' : 'hr_welcome_msg'
         };
       await _records.save(item);
     }
