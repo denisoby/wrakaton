@@ -7,6 +7,7 @@ import 'package:srv_base/Utils/Crypto.dart' as crypto;
 import 'package:template_srv/Models/Template.dart';
 import 'package:template_srv/Services/UsersService.dart' show User, UserGroup;
 import 'dart:convert';
+import 'package:template_srv/Services/StorageService.dart';
 
 class SubDeploy extends Bootstrapper {
   static List defWorkflow =  [
@@ -31,6 +32,7 @@ class SubDeploy extends Bootstrapper {
   final Gateway gateway;
   Repository<User> _users;
   Repository<Template> _templates;
+  Repository<Record> _records;
 
   SubDeploy(this.gateway);
 
@@ -39,6 +41,7 @@ class SubDeploy extends Bootstrapper {
     _users = new Repository<User>(gateway);
     _templates = new Repository<Template>(gateway);
     createStubUser();
+    createFormData();
     createStub_Article_Templates();
     createStub_ItHelpdesk_Templates();
     createStub_HR_welcome_Templates();
@@ -94,6 +97,30 @@ class SubDeploy extends Bootstrapper {
       ..data = {}
       ..settings = {};
     _users.save(user);
+  }
+
+  createFormData() async {
+    {
+      Record item = new Record()
+        ..entity_id = 28481
+        ..type = RecordType.FORMS.toInt()
+        ..data = { 'taskFormId' : 28481, 'templateId' : 5};
+      await _records.save(item);
+    }
+    {
+      Record item = new Record()
+        ..entity_id = 28483
+        ..type = RecordType.FORMS.toInt()
+        ..data = { 'taskFormId' : 28483, 'templateId' : 11};
+      await _records.save(item);
+    }
+    {
+      Record item = new Record()
+        ..entity_id = 28482
+        ..type = RecordType.FORMS.toInt()
+        ..data = { 'taskFormId' : 28482, 'templateId' : 12};
+      await _records.save(item);
+    }
   }
 
   createStub_Article_Templates() async {
