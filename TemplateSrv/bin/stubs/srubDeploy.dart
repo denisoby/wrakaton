@@ -284,7 +284,7 @@ class SubDeploy extends Bootstrapper {
     })
     ];
     await createTemplate(' IT-helpdesk %title%',
-      '', 'PROJECT', ['%engineer%'], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'helpdesk', ['%engineer%'], nested, defWorkflow, 'megaTeemId');
   }
 
   createStub_HR_welcome_Templates() async {
@@ -399,7 +399,7 @@ class SubDeploy extends Bootstrapper {
     })
     ];
     await createTemplate('Welcome onboarding %title%',
-      '', 'PROJECT', [], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'hr', [], nested, defWorkflow, 'megaTeemId');
   }
 
 }
