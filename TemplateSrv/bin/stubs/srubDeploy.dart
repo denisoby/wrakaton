@@ -94,15 +94,117 @@ class SubDeploy extends Bootstrapper {
   createStubTemplates() async {
     {
       List<int> nested = [
-      await createTemplate('subTemplate1 %title%',
-        'some task template', 'TASK', [], [], defWorkflow),
-      await createTemplate('subTemplate2 %title%',
-        'some task template', 'TASK', [], [], defWorkflow),
-      await createTemplate('subTemplate3 %title%',
-        'some task template', 'TASK', [], [], defWorkflow)
+      await _createTemplate({
+        'title' : 'Collect data %title%',
+        'description' : '',
+        'type' : 'TASK',
+        'place' : '',
+        'assignee' : JSON.encode('%analyst%'),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "Collecting data", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Data in review", 'to_states': [ 1, 3 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 3 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Content %title%',
+        'description' : '',
+        'type' : 'TASK',
+        'place' : '',
+        'assignee' : JSON.encode('%analyst%'),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "Content creation", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Content in review", 'to_states': [ 1, 3 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 3 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Make-up %title%',
+        'description' : '',
+        'type' : 'TASK',
+        'place' : '',
+        'assignee' : JSON.encode('%analyst%'),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "Design in progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Design in review", 'to_states': [ 1, 3 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 3 */
+            'state_name': "Final review", 'to_states': [ 2, 4 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 4 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Publish %title%',
+        'description' : '',
+        'type' : 'TASK',
+        'place' : '',
+        'assignee' : JSON.encode('%analyst%'),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "Publishing", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Waiting for response", 'to_states': [ 3 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 3 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      })
       ];
-      await createTemplate('base project template %title%',
-        'some project template', 'PROJECT', [], nested, defWorkflow, 'megaTeemId');
+      await createTemplate('Article creation %title%',
+        '', 'PROJECT', [], nested, defWorkflow, 'megaTeemId');
     }
   }
 
