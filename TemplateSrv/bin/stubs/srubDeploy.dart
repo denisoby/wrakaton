@@ -133,10 +133,10 @@ class SubDeploy extends Bootstrapper {
         ..data = {
           'wroot_id' : 1,
           'wid' : 1,
-          'tmpl_root' : 12,
-          'tmpl_sub' : 12,
-          'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'hr'
+          'tmpl_root' : 11,
+          'tmpl_sub' : 11,
+          'tmpl_root_ref_name' : 'arcticle',
+          'tmpl_sub_ref_name' : 'arcticle'
         };
       await _records.save(item);
     }
@@ -147,10 +147,10 @@ class SubDeploy extends Bootstrapper {
         ..data = {
           'wroot_id' : 1,
           'wid' : 2,
-          'tmpl_root' : 12,
-          'tmpl_sub' : 3,
-          'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'hr'
+          'tmpl_root' : 11,
+          'tmpl_sub' : 1,
+          'tmpl_root_ref_name' : 'arcticle',
+          'tmpl_sub_ref_name' : 'collect'
         };
       await _records.save(item);
     }
@@ -161,10 +161,10 @@ class SubDeploy extends Bootstrapper {
         ..data = {
           'wroot_id' : 1,
           'wid' : 3,
-          'tmpl_root' : 12,
-          'tmpl_sub' : 6,
-          'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'it'
+          'tmpl_root' : 11,
+          'tmpl_sub' : 4,
+          'tmpl_root_ref_name' : 'arcticle',
+          'tmpl_sub_ref_name' : 'content'
         };
       await _records.save(item);
     }
@@ -175,10 +175,10 @@ class SubDeploy extends Bootstrapper {
         ..data = {
           'wroot_id' : 1,
           'wid' : 4,
-          'tmpl_root' : 12,
-          'tmpl_sub' : 6,
-          'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'docs'
+          'tmpl_root' : 11,
+          'tmpl_sub' : 7,
+          'tmpl_root_ref_name' : 'arcticle',
+          'tmpl_sub_ref_name' : 'makeup'
         };
       await _records.save(item);
     }
@@ -189,24 +189,10 @@ class SubDeploy extends Bootstrapper {
         ..data = {
           'wroot_id' : 1,
           'wid' : 5,
-          'tmpl_root' : 12,
-          'tmpl_sub' : 8,
-          'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'buddy'
-        };
-      await _records.save(item);
-    }
-    {
-      Record item = new Record()
-        ..entity_id = 6
-        ..type = RecordType.TASKS.toInt()
-        ..data = {
-          'wroot_id' : 1,
-          'wid' : 6,
-          'tmpl_root' : 12,
-          'tmpl_sub' : 10,
-          'tmpl_root_ref_name' : 'hr',
-          'tmpl_sub_ref_name' : 'hr_welcome_msg'
+          'tmpl_root' : 11,
+          'tmpl_sub' : 9,
+          'tmpl_root_ref_name' : 'arcticle',
+          'tmpl_sub_ref_name' : 'publish'
         };
       await _records.save(item);
     }
@@ -359,7 +345,7 @@ class SubDeploy extends Bootstrapper {
     })
     ];
     await createTemplate('Article creation %title%',
-      '', 'PROJECT', 'arctice', ['%analyst%'], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'arcticle', ['%analyst%'], nested, defWorkflow, 'megaTeemId');
   }
 
   createStub_ItHelpdesk_Templates() async {
