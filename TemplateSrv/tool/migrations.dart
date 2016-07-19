@@ -21,6 +21,7 @@ class CreateTemplatesTableMigration extends Migration {
       schema.timestamp('updated_at').nullable(false);
       schema.boolean('enabled').nullable(false);
       schema.int('type').nullable(false);
+      schema.string('ref_name').nullable(false).unique();
       schema.json('data');
       schema.json('nested');
     });

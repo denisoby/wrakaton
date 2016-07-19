@@ -47,6 +47,7 @@ class SubDeploy extends Bootstrapper {
   Future<int> createTemplate(String header,
                              String description,
                              String type,
+                             String refName,
                              List<String> assignee,
                              List<int> nested,
                              List workflow,
@@ -55,6 +56,7 @@ class SubDeploy extends Bootstrapper {
       'title' : header,
       'description' : description,
       'type' : type,
+      'ref_name' : refName,
       'place' : placeId,
       'assignee' : JSON.encode(assignee),
       'nested' : JSON.encode(nested),
@@ -67,6 +69,7 @@ class SubDeploy extends Bootstrapper {
     Template template = new Template()
       ..enabled = true
       ..TType = TemplateType.fromStr(params['type'])
+      ..ref_name = params['ref_name']
       ..data = {
         'title' : params['title'],
         'description' : params['description'],
@@ -99,25 +102,36 @@ class SubDeploy extends Bootstrapper {
       'title' : 'Collect data %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'collect',
       'place' : '',
       'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
           'state_name': "New", 'to_states': [ 1 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [], 'leave_actions': [ ]
         },
         { /* 1 */
           'state_name': "Collecting data", 'to_states': [ 2 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+                      /*----ref_name------*/
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'assign', 'data' : '%analyst%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 2 */
           'state_name': "Data in review", 'to_states': [ 1, 3 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'assign', 'data' : '%author%'} }
+           ], 'leave_actions': [ ]
         },
         { /* 3 */
           'state_name': "Completed", 'to_states': [],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'assign', 'data' : '%author%'} },
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'status', 'data' : 'Content creation'} }
+          ], 'leave_actions': [ ]
         }
       ])
     }),
@@ -125,6 +139,7 @@ class SubDeploy extends Bootstrapper {
       'title' : 'Content %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'content',
       'place' : '',
       'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
@@ -135,15 +150,24 @@ class SubDeploy extends Bootstrapper {
         },
         { /* 1 */
           'state_name': "Content creation", 'to_states': [ 2 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'assign', 'data' : '%author%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 2 */
           'state_name': "Content in review", 'to_states': [ 1, 3 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'assign', 'data' : '%editor%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 3 */
           'state_name': "Completed", 'to_states': [],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'status', 'data' : 'Design in progress'} }
+          ], 'leave_actions': [ ]
         }
       ])
     }),
@@ -151,6 +175,7 @@ class SubDeploy extends Bootstrapper {
       'title' : 'Make-up %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'makeup',
       'place' : '',
       'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
@@ -161,19 +186,31 @@ class SubDeploy extends Bootstrapper {
         },
         { /* 1 */
           'state_name': "Design in progress", 'to_states': [ 2 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 2 */
           'state_name': "Design in review", 'to_states': [ 1, 3 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%editor%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 3 */
           'state_name': "Final review", 'to_states': [ 2, 4 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%creativeId%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 4 */
           'state_name': "Completed", 'to_states': [],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['article', 'publish'], 'action' : { 'name' : 'assign', 'data' : '%publisher%'} },
+            {'path' : ['article', 'publish'], 'action' : { 'name' : 'status', 'data' : 'Publishing'} }
+          ], 'leave_actions': [ ]
         }
       ])
     }),
@@ -181,6 +218,7 @@ class SubDeploy extends Bootstrapper {
       'title' : 'Publish %title%',
       'description' : '',
       'type' : 'TASK',
+      'ref_name' : 'publish',
       'place' : '',
       'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
@@ -205,7 +243,7 @@ class SubDeploy extends Bootstrapper {
     })
     ];
     await createTemplate('Article creation %title%',
-      '', 'PROJECT', ['%analyst%'], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'arctice', ['%analyst%'], nested, defWorkflow, 'megaTeemId');
   }
 
   createStub_ItHelpdesk_Templates() async {

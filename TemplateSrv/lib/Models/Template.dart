@@ -31,6 +31,7 @@ class Template extends Model {
   @field int id;
   @field bool enabled;
   @field int type;
+  @field String ref_name;
   @field List nested;
   @field Map data;
 
@@ -49,6 +50,7 @@ class Template extends Model {
       'id' : id,
       'enabled' : enabled,
       'type' : TType.toString(),
+      'ref_name' : ref_name,
       'data' : data,
       'nested' : nested
     };
