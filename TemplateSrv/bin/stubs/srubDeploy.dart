@@ -379,15 +379,24 @@ class SubDeploy extends Bootstrapper {
         },
         { /* 1 */
           'state_name': "In progress", 'to_states': [ 2, 5 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineer%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 2 */
           'state_name': "Waiting for approval", 'to_states': [ 3, 4 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'assign', 'data' : '%approver%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 3 */
           'state_name': "In progress - approved", 'to_states': [ 5 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
+          'enter_actions': [
+            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineer%'} }
+          ], 'leave_actions': [ ]
         },
         { /* 4 */
           'state_name': "Rejected", 'to_states': [ ],
