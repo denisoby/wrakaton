@@ -21,11 +21,11 @@ class RecordType {
   static RecordType fromStr(String val)
     => values.firstWhere((RecordType el) => el._value == val);
 
-  static const TASK = const RecordType._internal('tasks');
+  static const TASKS = const RecordType._internal('tasks');
   static const FORMS = const RecordType._internal('forms');
 
   static final List<RecordType> values = [
-    RecordType.TASK,
+    RecordType.TASKS,
     RecordType.FORMS
   ];
 }
@@ -65,9 +65,14 @@ class StorageService extends Controller with QueryLimit {
   @Get('/:type/:id') getFormsData({String id, String type}) async {
     if(!urls.contains(type)) this.abortNotFound();
     final int queryType = RecordType.fromStr(type).toInt();
-    return records.where((el)
-      => el.entity_id == int.parse(id) && el.type == queryType)
-        .get().first.catchError((StateError err){ this.abortNotFound();});
+    try {
+      Record ret = await records.where((el)
+                  => el.entity_id == int.parse(id) && el.type == queryType)
+                        .get().first;
+      return ret.data;
+    } catch (err) {
+      this.abortNotFound();
+    }
   }
 
   @Get('/:type') getDataQuery(Input args, {String type}) async {
@@ -76,13 +81,15 @@ class StorageService extends Controller with QueryLimit {
     Map params = args.body;
     if(params.keys.isEmpty) {
       return records.where((el) => el.type == queryType).get()
-        .toList().catchError((StateError err){ this.abortNotFound();});
+        .toList().then((List<Record> items) => items.map((Record el) => el.data))
+        .catchError((StateError err){ this.abortNotFound();});
     } else {
       final String key = params.keys.first;
       return records
         .where((el) => el.type == queryType).get()
-          .where((el) => el.data[key] == params[key]).toList()
-        .catchError((StateError err){ this.abortNotFound();});
+          .where((el) => el.data[key] == params[key])
+          .toList().then((List<Record> items) => items.map((Record el) => el.data))
+          .catchError((StateError err){ this.abortNotFound();});
     }
   }
 }

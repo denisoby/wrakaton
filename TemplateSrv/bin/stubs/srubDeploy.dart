@@ -124,6 +124,22 @@ class SubDeploy extends Bootstrapper {
     }
   }
 
+  createTasksData() async {
+    { /*
+      Record item = new Record()
+        ..entity_id = 28481
+        ..type = RecordType.TASKS.toInt()
+        ..data = {
+          'wroot_id' : wrikeRootId,
+          'wid' : wrikeTaskId,
+          'tmpl_root' : tmpl_root_ref_name,
+          'tmpl_sub' : tmpl_sub_ref_name
+        };
+      await _records.save(item);
+      */
+    }
+  }
+
   createStub_Article_Templates() async {
     List<int> nested = [
     await _createTemplate({
