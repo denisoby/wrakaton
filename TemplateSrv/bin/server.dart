@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'package:template_srv/Srv.dart' as Srv;
 import 'package:srv_base/Srv.dart' as base;
@@ -30,6 +31,7 @@ get embla => [
   ),
   new base.HttpsBootstrapper(
     port: config['port'],
+    ipAddress: InternetAddress.ANY_IP_V4,
     pipeline: pipe(
       LoggerMiddleware, RemoveTrailingSlashMiddleware,
       Route.post('login/', base.JwtLoginMiddleware),
