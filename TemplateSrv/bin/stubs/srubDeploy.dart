@@ -40,6 +40,7 @@ class SubDeploy extends Bootstrapper {
     _templates = new Repository<Template>(gateway);
     createStubUser();
     createStub_Article_Templates();
+    createStub_ItHelpdesk_Templates();
   }
 
   Future<int> createTemplate(String header,
