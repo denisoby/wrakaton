@@ -180,7 +180,7 @@ class SubDeploy extends Bootstrapper {
       'type' : 'TASK',
       'ref_name' : 'content',
       'place' : '',
-      'assignee' : JSON.encode(['%content manager%']),
+      'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -222,7 +222,7 @@ class SubDeploy extends Bootstrapper {
       'type' : 'TASK',
       'ref_name' : 'makeup',
       'place' : '',
-      'assignee' : JSON.encode(['%designer%']),
+      'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -271,7 +271,7 @@ class SubDeploy extends Bootstrapper {
       'type' : 'TASK',
       'ref_name' : 'publish',
       'place' : '',
-      'assignee' : JSON.encode(['%editor%']),
+      'assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */

@@ -39,5 +39,4 @@ rollback() async {
 @Task()
 deployBankTmpl() async {
   await dataCreator.init();
-  await dataCreator.createStub_Bank_Credit_Templates();
 }
