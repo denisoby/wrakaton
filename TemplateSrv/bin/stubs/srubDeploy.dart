@@ -419,4 +419,41 @@ class SubDeploy extends Bootstrapper {
       '', 'PROJECT', 'hr', [], nested, defWorkflow, 'megaTeemId');
   }
 
+  createStub_Bank_Credit_Templates() async {
+    List<int> nested = [
+    await _createTemplate({
+      'title' : 'Documents preparation: %name%',
+      'description' : 'Scan standart documents: pasport, photo.',
+      'type' : 'TASK',
+      'ref_name' : 'docs_2',
+      'place' : '',
+      'assignee' : JSON.encode(['%client_manager%']),
+      'nested' : JSON.encode([]),
+      'workflow' : JSON.encode(defWorkflow)
+    }),
+    await _createTemplate({
+      'title' : 'Security check: %name%',
+      'description' : 'Check cleanliness customers',
+      'type' : 'TASK',
+      'ref_name' : 'secur',
+      'place' : '',
+      'assignee' : JSON.encode(['%security_manager%']),
+      'nested' : JSON.encode([]),
+      'workflow' : JSON.encode(defWorkflow)
+    }),
+    await _createTemplate({
+      'title' : 'Final resolution: %name%',
+      'description' : 'Provide info about resolution',
+      'type' : 'TASK',
+      'ref_name' : 'secur',
+      'place' : '',
+      'assignee' : JSON.encode(['%client_manager%']),
+      'nested' : JSON.encode([]),
+      'workflow' : JSON.encode(defWorkflow)
+    }),
+    ];
+    await createTemplate('Credit request %name%',
+      '', 'TASK', 'bank', [], nested, defWorkflow, 'megaTeemId');
+  }
+
 }

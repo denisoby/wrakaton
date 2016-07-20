@@ -34,3 +34,8 @@ rollback() async {
   await gateway.rollback(migrations);
   await gateway.disconnect();
 }
+
+@Task()
+deployBankTmpl() async {
+  await dataCreator.createStub_Bank_Credit_Templates();
+}
