@@ -298,7 +298,7 @@ class SubDeploy extends Bootstrapper {
     })
     ];
     await createTemplate('Article creation %title%',
-      '', 'PROJECT', 'arcticle', [], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'article', [], nested, defWorkflow, 'megaTeemId');
   }
 
   createStub_ItHelpdesk_Templates() async {
