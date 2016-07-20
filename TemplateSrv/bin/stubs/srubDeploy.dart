@@ -81,6 +81,7 @@ class SubDeploy extends Bootstrapper {
         'title' : params['title'],
         'description' : params['description'],
         'assignee' : JSON.decode(params['assignee']),
+        'input_assignee' : JSON.decode(params['input_assignee']),
         'workflow' : JSON.decode(params['workflow'])
       };
     if(params.containsKey('nested')) {
