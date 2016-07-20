@@ -106,21 +106,21 @@ class SubDeploy extends Bootstrapper {
       Record item = new Record()
         ..entity_id = 28481
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28481, 'templateId' : 5, 'targetFolderId' : 8528910};
+        ..data = { 'taskFormId' : 28481, 'templateId' : 2, 'targetFolderId' : 8528910};
       await _records.save(item);
     }
     {
       Record item = new Record()
         ..entity_id = 28483
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28483, 'templateId' : 11, 'targetFolderId' : 8528913};
+        ..data = { 'taskFormId' : 28483, 'templateId' : 10, 'targetFolderId' : 8528913};
       await _records.save(item);
     }
     {
       Record item = new Record()
         ..entity_id = 28482
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28482, 'templateId' : 12, 'targetFolderId' : 8528912};
+        ..data = { 'taskFormId' : 28482, 'templateId' : 9, 'targetFolderId' : 8528912};
       await _records.save(item);
     }
   }
@@ -383,22 +383,22 @@ class SubDeploy extends Bootstrapper {
         { /* 1 */
           'state_name': "In progress", 'to_states': [ 2, 5 ],
           'enter_actions': [
-            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
-            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineer%'} }
+            {'path' : ['ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineer%'} }
           ], 'leave_actions': [ ]
         },
         { /* 2 */
           'state_name': "Waiting for approval", 'to_states': [ 3, 4 ],
           'enter_actions': [
-            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
-            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'assign', 'data' : '%approver%'} }
+            {'path' : ['ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%approver%'} }
           ], 'leave_actions': [ ]
         },
         { /* 3 */
           'state_name': "In progress - approved", 'to_states': [ 5 ],
           'enter_actions': [
-            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
-            {'path' : ['helpdesk', 'ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineer%'} }
+            {'path' : ['ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineer%'} }
           ], 'leave_actions': [ ]
         },
         { /* 4 */
