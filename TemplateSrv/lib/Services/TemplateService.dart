@@ -71,10 +71,9 @@ class TemplateService extends Controller with QueryLimit {
     }
   }
 
-  @Get('/projects') getAllProjects(Input args) {
-    Map params = args.body;
+  _getAllByType(Map params, TemplateType type) {
     RepositoryQuery<Template> query =
-      templates.where((el) => el.enabled == true && el.type == TemplateType.PROJECT.toInt());
+      templates.where((el) => el.enabled == true && el.type == type.toInt());
     if(params.containsKey('count')) {
       final int count = int.parse(params['count']);
       if(params.containsKey('page')) {
@@ -95,6 +94,16 @@ class TemplateService extends Controller with QueryLimit {
     } else {
       return query.get().toList();
     }
+  }
+
+  @Get('/projects') getAllProjects(Input args) {
+    Map params = args.body;
+    return _getAllByType(params, TemplateType.PROJECT);
+  }
+
+  @Get('/folders') getAllFolders(Input args) {
+    Map params = args.body;
+    return _getAllByType(params, TemplateType.FOLDER);
   }
 
   @Get('/ref/:id') getTemplateByRef(Input args, {String id}) {
