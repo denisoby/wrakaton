@@ -305,7 +305,7 @@ class SubDeploy extends Bootstrapper {
     })
     ];
     await createTemplate('Article creation %title%',
-      '', 'PROJECT', 'article', [], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'article', [], [], nested, defWorkflow, 'megaTeemId');
   }
 
   createStub_ItHelpdesk_Templates() async {
@@ -436,7 +436,7 @@ class SubDeploy extends Bootstrapper {
     }),
     ];
     await createTemplate('Welcome onboarding %name%',
-      '', 'PROJECT', 'hr', [], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'hr', [], [], nested, defWorkflow, 'megaTeemId');
   }
 
 }
