@@ -449,6 +449,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'plan1',
         'place' : '',
         'assignee' : JSON.encode(['%event%']),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -496,11 +497,11 @@ class SubDeploy extends Bootstrapper {
               {'path' : ['event', 'presskit','kit2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
               {'path' : ['event', 'presskit','kit3'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
               {'path' : ['event', 'presskit','kit3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'speakers','spk1'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'speakers','spk1'], 'action' : { 'name' : 'assign', 'data' : '%speaker%'} },
               {'path' : ['event', 'speakers','spk1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
               {'path' : ['event', 'speakers','spk2'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
               {'path' : ['event', 'speakers','spk2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'speakers','spk3'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'speakers','spk3'], 'action' : { 'name' : 'assign', 'data' : '%speaker%'} },
               {'path' : ['event', 'speakers','spk3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
 
             ], 'leave_actions': [ ]
@@ -514,6 +515,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'plan2',
         'place' : '',
         'assignee' : JSON.encode(['content']),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -537,6 +539,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'plan3',
         'place' : '',
         'assignee' : JSON.encode(['%buddy%']),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -563,6 +566,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'book1',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -586,6 +590,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'book2',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -609,6 +614,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'book3',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -635,6 +641,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'coll1',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -658,6 +665,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'coll22',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -681,6 +689,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'coll3',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -704,6 +713,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'coll4',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -727,6 +737,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'coll5',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -753,6 +764,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'mm1',
         'place' : '',
         'assignee' : JSON.encode(['']),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -776,6 +788,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'mm2',
         'place' : '',
         'assignee' : JSON.encode(['']),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -799,6 +812,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'mm3',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -822,6 +836,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'mm4',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -848,6 +863,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'kit1',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -871,6 +887,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'kit2',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -894,6 +911,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'kit3',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -920,6 +938,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'spk1',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -943,6 +962,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'spk2',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -969,6 +989,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'site1',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -992,6 +1013,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'site2',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -1015,6 +1037,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'site4',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -1041,6 +1064,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'post1',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -1064,6 +1088,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'post2',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -1087,6 +1112,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'post3',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -1110,6 +1136,7 @@ class SubDeploy extends Bootstrapper {
         'ref_name' : 'post4',
         'place' : '',
         'assignee' : JSON.encode([]),
+        'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
           { /* 0 */
@@ -1130,23 +1157,23 @@ class SubDeploy extends Bootstrapper {
 
     List<int> nested1stlevel = [
     await createTemplate('Planning',
-        '', 'FOLDER', 'planning', [], nestedplanning, defWorkflow, 'megaTeemId'),
+        '', 'FOLDER', 'planning', [], [], nestedplanning, defWorkflow, 'megaTeemId'),
     await createTemplate('Third-party booking',
-        '', 'FOLDER', 'booking', [], nestedbooking, defWorkflow, 'megaTeemId'),
+        '', 'FOLDER', 'booking', [], [], nestedbooking, defWorkflow, 'megaTeemId'),
     await createTemplate('Collaterals',
-        '', 'FOLDER', 'collaterals', [], nestedcollaterals, defWorkflow, 'megaTeemId'),
+        '', 'FOLDER', 'collaterals', [], [], nestedcollaterals, defWorkflow, 'megaTeemId'),
     await createTemplate('Mass media interaction',
-        '', 'FOLDER', 'massmedia', [], nestedmassmedia, defWorkflow, 'megaTeemId'),
+        '', 'FOLDER', 'massmedia', [], [], nestedmassmedia, defWorkflow, 'megaTeemId'),
     await createTemplate('Speakers preparations',
-        '', 'FOLDER', 'speakers', [], nestedspeakers, defWorkflow, 'megaTeemId'),
+        '', 'FOLDER', 'speakers', [], [], nestedspeakers, defWorkflow, 'megaTeemId'),
     await createTemplate('Onsite jobs',
-        '', 'FOLDER', 'onsite', [], nestedonsite, defWorkflow, 'megaTeemId'),
+        '', 'FOLDER', 'onsite', [], [], nestedonsite, defWorkflow, 'megaTeemId'),
     await createTemplate('Post-event jobs',
-        '', 'FOLDER', 'postevent', [], nestedpostevent, defWorkflow, 'megaTeemId'),
+        '', 'FOLDER', 'postevent', [], [], nestedpostevent, defWorkflow, 'megaTeemId'),
     await createTemplate('Press kit',
-        '', 'FOLDER', 'presskit', [], nestedpresskit, defWorkflow, 'megaTeemId'),
+        '', 'FOLDER', 'presskit', [], [], nestedpresskit, defWorkflow, 'megaTeemId'),
   ];
     await createTemplate('Event: %name%',
-        '', 'PROJECT', 'event', [], nested1stlevel, defWorkflow, 'megaTeemId');
+        '', 'PROJECT', 'event', [], [], nested1stlevel, defWorkflow, 'megaTeemId');
   }
 }
