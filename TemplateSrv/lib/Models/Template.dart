@@ -64,6 +64,7 @@ class TemplateUtils {
 
   static Stream<Template> getNested(Template base) {
     if(base.nested.isEmpty) return new Stream.empty();
+    // TODO: migrate base.nested.contains(el.id) on SQL
     return getTemplates().all().where((Template el) => base.nested.contains(el.id));
   }
 
