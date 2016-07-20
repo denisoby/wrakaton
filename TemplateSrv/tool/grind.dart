@@ -25,6 +25,7 @@ migrate() async {
   await gateway.connect();
   await gateway.migrate(migrations);
   await dataCreator.init();
+  await dataCreator.deployMain();
   await gateway.disconnect();
 }
 
@@ -37,5 +38,6 @@ rollback() async {
 
 @Task()
 deployBankTmpl() async {
+  await dataCreator.init();
   await dataCreator.createStub_Bank_Credit_Templates();
 }

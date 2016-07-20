@@ -41,6 +41,9 @@ class SubDeploy extends Bootstrapper {
     _users = new Repository<User>(gateway);
     _templates = new Repository<Template>(gateway);
     _records = new Repository<Record>(gateway);
+  }
+
+  Future deployMain() async {
     await createStubUser();
     await createFormData();
     await createStub_Article_Templates();
