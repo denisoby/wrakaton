@@ -45,10 +45,10 @@ class SubDeploy extends Bootstrapper {
 
   Future deployMain() async {
     await createStubUser();
-    await createFormData();
     await createStub_Article_Templates();
     await createStub_ItHelpdesk_Templates();
     await createStub_HR_welcome_Templates();
+    await createFormData();
   }
 
   Future<int> createTemplate(String header,
@@ -105,24 +105,30 @@ class SubDeploy extends Bootstrapper {
 
   createFormData() async {
     {
+      /*Helpdesk*/
+      Template root = await _templates.where((el) => el.ref_name == 'ticket').first();
       Record item = new Record()
         ..entity_id = 28481
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28481, 'templateId' : 2, 'targetFolderId' : 8528910};
+        ..data = { 'taskFormId' : 28481, 'templateId' : root.id, 'targetFolderId' : 8528910};
       await _records.save(item);
     }
     {
+      /*Article*/
+      Template root = await _templates.where((el) => el.ref_name == 'arcticle').first();
       Record item = new Record()
         ..entity_id = 28483
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28483, 'templateId' : 10, 'targetFolderId' : 8528913};
+        ..data = { 'taskFormId' : 28483, 'templateId' : root.id, 'targetFolderId' : 8528913};
       await _records.save(item);
     }
     {
+      /*HR*/
+      Template root = await _templates.where((el) => el.ref_name == 'hr').first();
       Record item = new Record()
         ..entity_id = 28482
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28482, 'templateId' : 9, 'targetFolderId' : 8528918};
+        ..data = { 'taskFormId' : 28482, 'templateId' : root.id, 'targetFolderId' : 8528918};
       await _records.save(item);
     }
   }
