@@ -419,4 +419,714 @@ class SubDeploy extends Bootstrapper {
       '', 'PROJECT', 'hr', [], nested, defWorkflow, 'megaTeemId');
   }
 
+  createStub_Event_Templates() async {
+
+    List<int> nestedplanning = [
+      await _createTemplate({
+        'title' : 'Plan the event',
+        'description' : 'Plan everything',
+        'type' : 'TASK',
+        'ref_name' : 'plan1',
+        'place' : '',
+        'assignee' : JSON.encode(['%event%']),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [
+              {'path' : ['event', 'planning','plan2'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'planning','plan2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'planning','plan3'], 'action' : { 'name' : 'assign', 'data' : '%pr%'} },
+              {'path' : ['event', 'planning','plan3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'booking','book1'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
+              {'path' : ['event', 'booking','book1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'booking','book2'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
+              {'path' : ['event', 'booking','book2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'booking','book3'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
+              {'path' : ['event', 'booking','book3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'collaterals','coll1'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'collaterals','coll1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'collaterals','coll2'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
+              {'path' : ['event', 'collaterals','coll2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'collaterals','coll3'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
+              {'path' : ['event', 'collaterals','coll3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'collaterals','coll4'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
+              {'path' : ['event', 'collaterals','coll4'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'collaterals','coll5'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
+              {'path' : ['event', 'collaterals','coll5'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'massmedia','mm1'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'massmedia','mm1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'massmedia','mm2'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
+              {'path' : ['event', 'massmedia','mm2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'massmedia','mm3'], 'action' : { 'name' : 'assign', 'data' : '%pr%'} },
+              {'path' : ['event', 'massmedia','mm3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'massmedia','mm4'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
+              {'path' : ['event', 'massmedia','mm4'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'presskit','kit1'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'presskit','kit1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'presskit','kit2'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
+              {'path' : ['event', 'presskit','kit2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'presskit','kit3'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
+              {'path' : ['event', 'presskit','kit3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'speakers','spk1'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'speakers','spk1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'speakers','spk2'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'speakers','spk2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+              {'path' : ['event', 'speakers','spk3'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
+              {'path' : ['event', 'speakers','spk3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
+
+            ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Prepare scenario',
+        'description' : 'Write the event scenario',
+        'type' : 'TASK',
+        'ref_name' : 'plan2',
+        'place' : '',
+        'assignee' : JSON.encode(['content']),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Invitations list',
+        'description' : 'Collect mass media list to invite',
+        'type' : 'TASK',
+        'ref_name' : 'plan3',
+        'place' : '',
+        'assignee' : JSON.encode(['%buddy%']),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+    ];
+
+    List<int> nestedbooking = [
+      await _createTemplate({
+        'title' : 'Conference hall',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'book1',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Photo shooting',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'book2',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Equipment',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'book3',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+    ];
+
+    List<int> nestedcollaterals = [
+      await _createTemplate({
+        'title' : 'Presentation',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'coll1',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Roll-ups',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'coll22',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Press wall',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'coll3',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Banner for web',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'coll4',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Badges',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'coll5',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      })
+    ];
+
+    List<int> nestedmassmedia = [
+      await _createTemplate({
+        'title' : 'Invitation letter content',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'mm1',
+        'place' : '',
+        'assignee' : JSON.encode(['']),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Invitation letter design',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'mm2',
+        'place' : '',
+        'assignee' : JSON.encode(['']),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Mail-out with invitation',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'mm3',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Registration of journalists',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'mm4',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+    ];
+
+    List<int> nestedpresskit = [
+      await _createTemplate({
+        'title' : 'Press kit content',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'kit1',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Printing the kit',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'kit2',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Packaging',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'kit3',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+    ];
+
+    List<int> nestedspeakers = [
+      await _createTemplate({
+        'title' : 'Presentation speech copy',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'spk1',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Q&A list',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'spk2',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      })
+    ];
+
+    List<int> nestedonsite = [
+      await _createTemplate({
+        'title' : 'Coordination',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'site1',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Moderator training',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'site2',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Register desk operation',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'site4',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+    ];
+
+    List<int> nestedpostevent = [
+      await _createTemplate({
+        'title' : 'Press kit mail-out',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'post1',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Photoset publication',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'post2',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [ ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Analyse mass media feedback',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'post3',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+      await _createTemplate({
+        'title' : 'Internal reports',
+        'description' : '',
+        'type' : 'TASK',
+        'ref_name' : 'post4',
+        'place' : '',
+        'assignee' : JSON.encode([]),
+        'nested' : JSON.encode([]),
+        'workflow' : JSON.encode([
+          { /* 0 */
+            'state_name': "New", 'to_states': [ 1 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 1 */
+            'state_name': "In progress", 'to_states': [ 2 ],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          },
+          { /* 2 */
+            'state_name': "Completed", 'to_states': [],
+            'enter_actions': [ ], 'leave_actions': [ ]
+          }
+        ])
+      }),
+    ];
+
+    List<int> nested1stlevel = [
+    await createTemplate('Planning',
+        '', 'FOLDER', 'planning', [], nestedplanning, defWorkflow, 'megaTeemId'),
+    await createTemplate('Third-party booking',
+        '', 'FOLDER', 'booking', [], nestedbooking, defWorkflow, 'megaTeemId'),
+    await createTemplate('Collaterals',
+        '', 'FOLDER', 'collaterals', [], nestedcollaterals, defWorkflow, 'megaTeemId'),
+    await createTemplate('Mass media interaction',
+        '', 'FOLDER', 'massmedia', [], nestedmassmedia, defWorkflow, 'megaTeemId'),
+    await createTemplate('Speakers preparations',
+        '', 'FOLDER', 'speakers', [], nestedspeakers, defWorkflow, 'megaTeemId'),
+    await createTemplate('Onsite jobs',
+        '', 'FOLDER', 'onsite', [], nestedonsite, defWorkflow, 'megaTeemId'),
+    await createTemplate('Post-event jobs',
+        '', 'FOLDER', 'postevent', [], nestedpostevent, defWorkflow, 'megaTeemId'),
+    await createTemplate('Press kit',
+        '', 'FOLDER', 'presskit', [], nestedpresskit, defWorkflow, 'megaTeemId'),
+  ];
+    await createTemplate('Event: %name%',
+        '', 'PROJECT', 'event', [], nested1stlevel, defWorkflow, 'megaTeemId');
+  }
 }
