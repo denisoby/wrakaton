@@ -37,15 +37,15 @@ class SubDeploy extends Bootstrapper {
   SubDeploy(this.gateway);
 
   @Hook.init
-  init() {
+  Future init() async {
     _users = new Repository<User>(gateway);
     _templates = new Repository<Template>(gateway);
-    _records = new Repository<Record>(gateway);    
-    createStubUser();
-    createFormData();
-    createStub_Article_Templates();
-    createStub_ItHelpdesk_Templates();
-    createStub_HR_welcome_Templates();
+    _records = new Repository<Record>(gateway);
+    await createStubUser();
+    await createFormData();
+    await createStub_Article_Templates();
+    await createStub_ItHelpdesk_Templates();
+    await createStub_HR_welcome_Templates();
   }
 
   Future<int> createTemplate(String header,

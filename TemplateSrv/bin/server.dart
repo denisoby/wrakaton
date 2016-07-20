@@ -23,7 +23,10 @@ main(List<String> arguments, SendPort sendExitCommandPort) async {
   return embla_bootstrap.main(arguments, sendExitCommandPort);
 }
 
-var driver = new InMemoryDriver();
+var driver =
+  new PostgresqlDriver(username: 'postgres',
+                       password: 'postgres',
+                       database: 'template_srv');
 
 get embla => [
   new DatabaseBootstrapper(
@@ -45,6 +48,6 @@ get embla => [
       Route.all('storage/*', Srv.StorageService)
     )
   ),
-  new Srv.ActionSrv(),
-  new SubDeploy(new Gateway(driver))
+  new Srv.ActionSrv()
+  //new SubDeploy(new Gateway(driver))
 ];

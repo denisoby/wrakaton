@@ -3,11 +3,13 @@ import 'package:grinder/grinder.dart';
 import 'package:embla_trestle/gateway.dart';
 
 import '../bin/server.dart';
+import '../bin/stubs/srubDeploy.dart' as stubs;
 import 'migrations.dart';
 
 main(args) => grind(args);
 
 final gateway = new Gateway(driver);
+stubs.SubDeploy dataCreator = new stubs.SubDeploy(gateway);
 
 String getPostgresUri() {
   final String username = config['username'];
@@ -22,6 +24,7 @@ String getPostgresUri() {
 migrate() async {
   await gateway.connect();
   await gateway.migrate(migrations);
+  await dataCreator.init();
   await gateway.disconnect();
 }
 
