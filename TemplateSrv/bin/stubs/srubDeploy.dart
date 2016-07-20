@@ -106,21 +106,21 @@ class SubDeploy extends Bootstrapper {
       Record item = new Record()
         ..entity_id = 28481
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28481, 'templateId' : 5};
+        ..data = { 'taskFormId' : 28481, 'templateId' : 5, 'targetFolderId' : 8528910};
       await _records.save(item);
     }
     {
       Record item = new Record()
         ..entity_id = 28483
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28483, 'templateId' : 11};
+        ..data = { 'taskFormId' : 28483, 'templateId' : 11, 'targetFolderId' : 8528913};
       await _records.save(item);
     }
     {
       Record item = new Record()
         ..entity_id = 28482
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28482, 'templateId' : 12};
+        ..data = { 'taskFormId' : 28482, 'templateId' : 12, 'targetFolderId' : 8528912};
       await _records.save(item);
     }
   }
