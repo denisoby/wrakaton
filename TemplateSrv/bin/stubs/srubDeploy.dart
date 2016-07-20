@@ -115,7 +115,7 @@ class SubDeploy extends Bootstrapper {
     }
     {
       /*Article*/
-      Template root = await _templates.where((el) => el.ref_name == 'acticle').first();
+      Template root = await _templates.where((el) => el.ref_name == 'article').first();
       Record item = new Record()
         ..entity_id = 28483
         ..type = RecordType.FORMS.toInt()
