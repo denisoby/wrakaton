@@ -316,7 +316,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'ticket',
       'place' : '',
       'assignee' : JSON.encode([]),
-      'input_assignee' : JSON.encode(['%engineer%', '%approver%']),
+      'input_assignee' : JSON.encode(['%engineerId%', '%creativeId%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -327,21 +327,21 @@ class SubDeploy extends Bootstrapper {
           'state_name': "In progress", 'to_states': [ 2, 5 ],
           'enter_actions': [
             {'path' : ['ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
-            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineer%'} }
+            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineerId%'} }
           ], 'leave_actions': [ ]
         },
         { /* 2 */
           'state_name': "Waiting for approval", 'to_states': [ 3, 4 ],
           'enter_actions': [
             {'path' : ['ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
-            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%approver%'} }
+            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%creativeId%'} }
           ], 'leave_actions': [ ]
         },
         { /* 3 */
           'state_name': "In progress - approved", 'to_states': [ 5 ],
           'enter_actions': [
             {'path' : ['ticket'], 'action' : { 'name' : 'unassign', 'data' : null} },
-            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineer%'} }
+            {'path' : ['ticket'], 'action' : { 'name' : 'assign', 'data' : '%engineerId%'} }
           ], 'leave_actions': [ ]
         },
         { /* 4 */
