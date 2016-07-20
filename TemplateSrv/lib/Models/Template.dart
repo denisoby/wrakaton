@@ -64,7 +64,7 @@ class TemplateUtils {
 
   static Stream<Template> getNested(Template base) {
     if(base.nested.isEmpty) return new Stream.empty();
-    return getTemplates().where((el) => base.nested.contains(el.id)).get();
+    return getTemplates().all().where((Template el) => base.nested.contains(el.id));
   }
 
   static Future<Map> deepSerialize(Template template) async {
