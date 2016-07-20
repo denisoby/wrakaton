@@ -26,7 +26,7 @@ main(List<String> arguments, SendPort sendExitCommandPort) async {
 var driver =
   new PostgresqlDriver(username: 'postgres',
                        password: 'postgres',
-                       database: 'template_srv');
+                       database: 'template_srv'/*, host: '192.168.3.23', ssl: true*/);
 
 get embla => [
   new DatabaseBootstrapper(
@@ -48,6 +48,6 @@ get embla => [
       Route.all('storage/*', Srv.StorageService)
     )
   ),
-  new Srv.ActionSrv()
+  new Srv.ActionSrv(new Gateway(driver))
   //new SubDeploy(new Gateway(driver))
 ];

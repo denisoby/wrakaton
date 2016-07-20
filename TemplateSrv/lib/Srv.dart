@@ -17,6 +17,8 @@ import 'Models/Template.dart';
 import 'Models/TemplateRequest.dart';
 import 'package:logging/logging.dart';
 import 'package:stack_trace/stack_trace.dart';
+import 'package:template_srv/Services/StorageService.dart';
+import 'package:trestle/gateway.dart';
 export 'Services/StorageService.dart';
 export 'Services/RulesService.dart';
 export 'Services/TemplateService.dart';
@@ -26,9 +28,16 @@ class ActionSrv extends Bootstrapper {
   MessageBus _bus = new MessageBus();
   ModuleInjector _injector;
   AuthConfig authConfig = new AuthConfig();
-  Repository<Template> _templates;
   Repository<TemplateRequest> _requests;
   UserService userService;
+
+  Repository<User> _users;
+  Repository<Template> _templates;
+  Repository<Record> _records;
+
+  Gateway gateway;
+
+  ActionSrv(this.gateway);
 
   @Hook.init
   init() {
@@ -52,6 +61,10 @@ class ActionSrv extends Bootstrapper {
     ..welcomeHandler = this.welcomeHandler;
 
     setupConsoleLog();
+
+    _users = new Repository<User>(gateway);
+    _templates = new Repository<Template>(gateway);
+    _records = new Repository<Record>(gateway);
   }
 
   void setupConsoleLog([Level level = Level.INFO]) {
