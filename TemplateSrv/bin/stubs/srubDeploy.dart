@@ -56,6 +56,7 @@ class SubDeploy extends Bootstrapper {
                              String type,
                              String refName,
                              List<String> assignee,
+                             List<String> input_assignee,
                              List<int> nested,
                              List workflow,
                              [String placeId = null]) {
@@ -66,6 +67,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : refName,
       'place' : placeId,
       'assignee' : JSON.encode(assignee),
+      'input_assignee' : JSON.encode(input_assignee),
       'nested' : JSON.encode(nested),
       'workflow' : JSON.encode(workflow)
     };
