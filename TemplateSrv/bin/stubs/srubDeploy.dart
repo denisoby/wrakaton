@@ -201,12 +201,12 @@ class SubDeploy extends Bootstrapper {
   createStub_Article_Templates() async {
     List<int> nested = [
     await _createTemplate({
-      'title' : 'Collect data %title%',
-      'description' : '',
+      'title' : 'Collect data: %title%',
+      'description' : '<h3>Please collect the data for the following article</h3><p>Title:<b>%title%</b></p><p>%brief%</p>',
       'type' : 'TASK',
       'ref_name' : 'collect',
       'place' : '',
-      'assignee' : JSON.encode([]),
+      'assignee' : JSON.encode(['%analyst%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -231,15 +231,17 @@ class SubDeploy extends Bootstrapper {
         { /* 3 */
           'state_name': "Completed", 'to_states': [],
           'enter_actions': [
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'collect'], 'action' : { 'name' : 'assign', 'data' : '%analyst%'} },
             {'path' : ['article', 'content'], 'action' : { 'name' : 'assign', 'data' : '%author%'} },
-            {'path' : ['article', 'content'], 'action' : { 'name' : 'status', 'data' : 'Content creation'} }
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'status', 'data' : 'New'} }
           ], 'leave_actions': [ ]
         }
       ])
     }),
     await _createTemplate({
       'title' : 'Content %title%',
-      'description' : '',
+      'description' : '<h3>Please write content for the article</h3><p>Title:<b>%title%</b></p><p>%brief%</p>',
       'type' : 'TASK',
       'ref_name' : 'content',
       'place' : '',
@@ -247,35 +249,41 @@ class SubDeploy extends Bootstrapper {
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
-          'state_name': "New", 'to_states': [ 1 ],
+          'state_name': "Waiting for other tasks", 'to_states': [ 1 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 1 */
-          'state_name': "Content creation", 'to_states': [ 2 ],
-          'enter_actions': [
-            {'path' : ['article', 'collect'], 'action' : { 'name' : 'unassign', 'data' : null} },
-            {'path' : ['article', 'collect'], 'action' : { 'name' : 'assign', 'data' : '%author%'} }
-          ], 'leave_actions': [ ]
+          'state_name': "New", 'to_states': [ 2 ],
+          'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 2 */
-          'state_name': "Content in review", 'to_states': [ 1, 3 ],
+          'state_name': "Content creation", 'to_states': [ 3 ],
           'enter_actions': [
-            {'path' : ['article', 'collect'], 'action' : { 'name' : 'unassign', 'data' : null} },
-            {'path' : ['article', 'collect'], 'action' : { 'name' : 'assign', 'data' : '%editor%'} }
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'assign', 'data' : '%author%'} }
           ], 'leave_actions': [ ]
         },
         { /* 3 */
+          'state_name': "Content in review", 'to_states': [ 2, 4 ],
+          'enter_actions': [
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'assign', 'data' : '%editor%'} }
+          ], 'leave_actions': [ ]
+        },
+        { /* 4 */
           'state_name': "Completed", 'to_states': [],
           'enter_actions': [
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'content'], 'action' : { 'name' : 'assign', 'data' : '%author%'} },
             {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
-            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'status', 'data' : 'Design in progress'} }
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'status', 'data' : 'New'} }
           ], 'leave_actions': [ ]
         }
       ])
     }),
     await _createTemplate({
       'title' : 'Make-up %title%',
-      'description' : '',
+      'description' : '<h3>Please design the make-up for the new article</h3><p>Title:<b>%title%</b></p><p>%brief%</p>',
       'type' : 'TASK',
       'ref_name' : 'makeup',
       'place' : '',
@@ -283,42 +291,48 @@ class SubDeploy extends Bootstrapper {
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
-          'state_name': "New", 'to_states': [ 1 ],
+          'state_name': "Waiting for other tasks", 'to_states': [ 1 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 1 */
-          'state_name': "Design in progress", 'to_states': [ 2 ],
+          'state_name': "New", 'to_states': [ 2 ],
+          'enter_actions': [ ], 'leave_actions': [ ]
+        },
+        { /* 2 */
+          'state_name': "Design in progress", 'to_states': [ 3 ],
           'enter_actions': [
             {'path' : ['article', 'makeup'], 'action' : { 'name' : 'unassign', 'data' : null} },
             {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} }
           ], 'leave_actions': [ ]
         },
-        { /* 2 */
-          'state_name': "Design in review", 'to_states': [ 1, 3 ],
+        { /* 3 */
+          'state_name': "Design in review", 'to_states': [ 2, 4 ],
           'enter_actions': [
             {'path' : ['article', 'makeup'], 'action' : { 'name' : 'unassign', 'data' : null} },
             {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%editor%'} }
           ], 'leave_actions': [ ]
         },
-        { /* 3 */
-          'state_name': "Final review", 'to_states': [ 2, 4 ],
+        { /* 4 */
+          'state_name': "Final review", 'to_states': [ 2, 5 ],
           'enter_actions': [
             {'path' : ['article', 'makeup'], 'action' : { 'name' : 'unassign', 'data' : null} },
             {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%creativeId%'} }
           ], 'leave_actions': [ ]
         },
-        { /* 4 */
+        { /* 5 */
           'state_name': "Completed", 'to_states': [],
           'enter_actions': [
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'unassign', 'data' : null} },
+            {'path' : ['article', 'makeup'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
             {'path' : ['article', 'publish'], 'action' : { 'name' : 'assign', 'data' : '%publisher%'} },
-            {'path' : ['article', 'publish'], 'action' : { 'name' : 'status', 'data' : 'Publishing'} }
+            {'path' : ['article', 'publish'], 'action' : { 'name' : 'status', 'data' : 'New'} }
           ], 'leave_actions': [ ]
         }
       ])
     }),
     await _createTemplate({
       'title' : 'Publish %title%',
-      'description' : '',
+      'description' : '<h3>Please publish the article</h3><p>Title:<b>%title%</b></p>',
       'type' : 'TASK',
       'ref_name' : 'publish',
       'place' : '',
@@ -326,18 +340,22 @@ class SubDeploy extends Bootstrapper {
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
-          'state_name': "New", 'to_states': [ 1 ],
+          'state_name': "Waiting for other tasks", 'to_states': [ 1 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 1 */
-          'state_name': "Publishing", 'to_states': [ 2 ],
+          'state_name': "New", 'to_states': [ 2 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 2 */
-          'state_name': "Waiting for response", 'to_states': [ 3 ],
+          'state_name': "Publishing", 'to_states': [ 3 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 3 */
+          'state_name': "Waiting for response", 'to_states': [ 4 ],
+          'enter_actions': [ ], 'leave_actions': [ ]
+        },
+        { /* 4 */
           'state_name': "Completed", 'to_states': [],
           'enter_actions': [ ], 'leave_actions': [ ]
         }
@@ -345,14 +363,13 @@ class SubDeploy extends Bootstrapper {
     })
     ];
     await createTemplate('Article creation %title%',
-      '', 'PROJECT', 'arcticle', ['%analyst%'], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'arcticle', [], nested, defWorkflow, 'megaTeemId');
   }
 
   createStub_ItHelpdesk_Templates() async {
-    List<int> nested = [
     await _createTemplate({
-      'title' : 'Collect data %title%',
-      'description' : '',
+      'title' : 'Ticket: %title%',
+      'description' : '%description%',
       'type' : 'TASK',
       'ref_name' : 'ticket',
       'place' : '',
@@ -393,17 +410,14 @@ class SubDeploy extends Bootstrapper {
           'enter_actions': [ ], 'leave_actions': [ ]
         }
       ])
-    })
-    ];
-    await createTemplate(' IT-helpdesk %title%',
-      '', 'PROJECT', 'helpdesk', ['%engineer%'], nested, defWorkflow, 'megaTeemId');
+    });
   }
 
   createStub_HR_welcome_Templates() async {
     List<int> nested = [
     await _createTemplate({
-      'title' : 'Workspace preparation: %title%',
-      'description' : '',
+      'title' : 'Workspace preparation: %name%',
+      'description' : 'Please prepare standard equipment set for the new employee.',
       'type' : 'TASK',
       'ref_name' : 'it',
       'place' : '',
@@ -415,26 +429,22 @@ class SubDeploy extends Bootstrapper {
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 1 */
-          'state_name': "Collecting data", 'to_states': [ 2 ],
+          'state_name': "In progress", 'to_states': [ 2 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 2 */
-          'state_name': "Data in review", 'to_states': [ 1, 3 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
-        },
-        { /* 3 */
-          'state_name': "Completed", 'to_states': [],
+          'state_name': "Completed", 'to_states': [ ],
           'enter_actions': [ ], 'leave_actions': [ ]
         }
       ])
     }),
     await _createTemplate({
-      'title' : 'HR onboarding: %title%',
-      'description' : '',
+      'title' : 'HR onboarding: %name%',
+      'description' : 'Please prepare and sign all necessary documents for the new employee.',
       'type' : 'TASK',
       'ref_name' : 'docs',
       'place' : '',
-      'assignee' : JSON.encode(['%hrmanager%']),
+      'assignee' : JSON.encode(['%manager%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -442,26 +452,22 @@ class SubDeploy extends Bootstrapper {
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 1 */
-          'state_name': "Content creation", 'to_states': [ 2 ],
+          'state_name': "In progress", 'to_states': [ 2 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 2 */
-          'state_name': "Content in review", 'to_states': [ 1, 3 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
-        },
-        { /* 3 */
-          'state_name': "Completed", 'to_states': [],
+          'state_name': "Completed", 'to_states': [ ],
           'enter_actions': [ ], 'leave_actions': [ ]
         }
       ])
     }),
     await _createTemplate({
-      'title' : 'Buddy adoption: %title%',
-      'description' : '',
+      'title' : 'Buddy adoption: %name%',
+      'description' : 'There is a new guy in your department. Please help him adopt better!',
       'type' : 'TASK',
       'ref_name' : 'buddy',
       'place' : '',
-      'assignee' : JSON.encode(['%buddyguy%']),
+      'assignee' : JSON.encode(['%buddy%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -469,52 +475,21 @@ class SubDeploy extends Bootstrapper {
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 1 */
-          'state_name': "Design in progress", 'to_states': [ 2 ],
+          'state_name': "In progress", 'to_states': [ 2 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 2 */
-          'state_name': "Design in review", 'to_states': [ 1, 3 ],
+          'state_name': "Collecting feedback", 'to_states': [ 3 ],
           'enter_actions': [ ], 'leave_actions': [ ]
         },
         { /* 3 */
-          'state_name': "Final review", 'to_states': [ 2, 4 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
-        },
-        { /* 4 */
           'state_name': "Completed", 'to_states': [],
           'enter_actions': [ ], 'leave_actions': [ ]
         }
       ])
     }),
-    await _createTemplate({
-      'title' : 'Publish %title%',
-      'description' : '',
-      'type' : 'TASK',
-      'ref_name' : 'hr_welcome_msg',
-      'place' : '',
-      'assignee' : JSON.encode([]),
-      'nested' : JSON.encode([]),
-      'workflow' : JSON.encode([
-        { /* 0 */
-          'state_name': "New", 'to_states': [ 1 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
-        },
-        { /* 1 */
-          'state_name': "Publishing", 'to_states': [ 2 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
-        },
-        { /* 2 */
-          'state_name': "Waiting for response", 'to_states': [ 3 ],
-          'enter_actions': [ ], 'leave_actions': [ ]
-        },
-        { /* 3 */
-          'state_name': "Completed", 'to_states': [],
-          'enter_actions': [ ], 'leave_actions': [ ]
-        }
-      ])
-    })
     ];
-    await createTemplate('Welcome onboarding %title%',
+    await createTemplate('Welcome onboarding %name%',
       '', 'PROJECT', 'hr', [], nested, defWorkflow, 'megaTeemId');
   }
 
