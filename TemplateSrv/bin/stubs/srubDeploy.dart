@@ -40,8 +40,7 @@ class SubDeploy extends Bootstrapper {
   init() {
     _users = new Repository<User>(gateway);
     _templates = new Repository<Template>(gateway);
-    _records = new Repository<Record>(gateway);
-    createTasksData();
+    _records = new Repository<Record>(gateway);    
     createStubUser();
     createFormData();
     createStub_Article_Templates();
@@ -121,79 +120,6 @@ class SubDeploy extends Bootstrapper {
         ..entity_id = 28482
         ..type = RecordType.FORMS.toInt()
         ..data = { 'taskFormId' : 28482, 'templateId' : 9, 'targetFolderId' : 8528918};
-      await _records.save(item);
-    }
-  }
-
-  createTasksData() async {
-    {
-      Record item = new Record()
-        ..entity_id = 1
-        ..type = RecordType.TASKS.toInt()
-        ..data = {
-          'wroot_id' : 1,
-          'wid' : 1,
-          'tmpl_root' : 11,
-          'tmpl_sub' : 11,
-          'tmpl_root_ref_name' : 'arcticle',
-          'tmpl_sub_ref_name' : 'arcticle'
-        };
-      await _records.save(item);
-    }
-    {
-      Record item = new Record()
-        ..entity_id = 2
-        ..type = RecordType.TASKS.toInt()
-        ..data = {
-          'wroot_id' : 1,
-          'wid' : 2,
-          'tmpl_root' : 11,
-          'tmpl_sub' : 1,
-          'tmpl_root_ref_name' : 'arcticle',
-          'tmpl_sub_ref_name' : 'collect'
-        };
-      await _records.save(item);
-    }
-    {
-      Record item = new Record()
-        ..entity_id = 3
-        ..type = RecordType.TASKS.toInt()
-        ..data = {
-          'wroot_id' : 1,
-          'wid' : 3,
-          'tmpl_root' : 11,
-          'tmpl_sub' : 4,
-          'tmpl_root_ref_name' : 'arcticle',
-          'tmpl_sub_ref_name' : 'content'
-        };
-      await _records.save(item);
-    }
-    {
-      Record item = new Record()
-        ..entity_id = 4
-        ..type = RecordType.TASKS.toInt()
-        ..data = {
-          'wroot_id' : 1,
-          'wid' : 4,
-          'tmpl_root' : 11,
-          'tmpl_sub' : 7,
-          'tmpl_root_ref_name' : 'arcticle',
-          'tmpl_sub_ref_name' : 'makeup'
-        };
-      await _records.save(item);
-    }
-    {
-      Record item = new Record()
-        ..entity_id = 5
-        ..type = RecordType.TASKS.toInt()
-        ..data = {
-          'wroot_id' : 1,
-          'wid' : 5,
-          'tmpl_root' : 11,
-          'tmpl_sub' : 9,
-          'tmpl_root_ref_name' : 'arcticle',
-          'tmpl_sub_ref_name' : 'publish'
-        };
       await _records.save(item);
     }
   }
