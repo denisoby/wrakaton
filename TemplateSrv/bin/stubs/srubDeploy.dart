@@ -41,11 +41,14 @@ class SubDeploy extends Bootstrapper {
     _users = new Repository<User>(gateway);
     _templates = new Repository<Template>(gateway);
     _records = new Repository<Record>(gateway);
+  }
+
+  Future deployMain() async {
     await createStubUser();
-    await createFormData();
     await createStub_Article_Templates();
     await createStub_ItHelpdesk_Templates();
     await createStub_HR_welcome_Templates();
+    await createFormData();
   }
 
   Future<int> createTemplate(String header,
@@ -53,6 +56,7 @@ class SubDeploy extends Bootstrapper {
                              String type,
                              String refName,
                              List<String> assignee,
+                             List<String> input_assignee,
                              List<int> nested,
                              List workflow,
                              [String placeId = null]) {
@@ -63,6 +67,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : refName,
       'place' : placeId,
       'assignee' : JSON.encode(assignee),
+      'input_assignee' : JSON.encode(input_assignee),
       'nested' : JSON.encode(nested),
       'workflow' : JSON.encode(workflow)
     };
@@ -78,6 +83,7 @@ class SubDeploy extends Bootstrapper {
         'title' : params['title'],
         'description' : params['description'],
         'assignee' : JSON.decode(params['assignee']),
+        'input_assignee' : JSON.decode(params['input_assignee']),
         'workflow' : JSON.decode(params['workflow'])
       };
     if(params.containsKey('nested')) {
@@ -102,24 +108,30 @@ class SubDeploy extends Bootstrapper {
 
   createFormData() async {
     {
+      /*Helpdesk*/
+      Template root = await _templates.where((el) => el.ref_name == 'ticket').first();
       Record item = new Record()
         ..entity_id = 28481
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28481, 'templateId' : 2, 'targetFolderId' : 8528910};
+        ..data = { 'taskFormId' : 28481, 'templateId' : root.id, 'targetFolderId' : 8528910};
       await _records.save(item);
     }
     {
+      /*Article*/
+      Template root = await _templates.where((el) => el.ref_name == 'article').first();
       Record item = new Record()
         ..entity_id = 28483
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28483, 'templateId' : 10, 'targetFolderId' : 8528913};
+        ..data = { 'taskFormId' : 28483, 'templateId' : root.id, 'targetFolderId' : 8528913};
       await _records.save(item);
     }
     {
+      /*HR*/
+      Template root = await _templates.where((el) => el.ref_name == 'hr').first();
       Record item = new Record()
         ..entity_id = 28482
         ..type = RecordType.FORMS.toInt()
-        ..data = { 'taskFormId' : 28482, 'templateId' : 9, 'targetFolderId' : 8528918};
+        ..data = { 'taskFormId' : 28482, 'templateId' : root.id, 'targetFolderId' : 8528918};
       await _records.save(item);
     }
   }
@@ -133,6 +145,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'collect',
       'place' : '',
       'assignee' : JSON.encode(['%analyst%']),
+      'input_assignee' : JSON.encode(['%analyst%', '%author%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -171,7 +184,8 @@ class SubDeploy extends Bootstrapper {
       'type' : 'TASK',
       'ref_name' : 'content',
       'place' : '',
-      'assignee' : JSON.encode(['%content manager%']),
+      'assignee' : JSON.encode([]),
+      'input_assignee' : JSON.encode(['%author%', '%editor%', '%designer%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -213,7 +227,8 @@ class SubDeploy extends Bootstrapper {
       'type' : 'TASK',
       'ref_name' : 'makeup',
       'place' : '',
-      'assignee' : JSON.encode(['%designer%']),
+      'assignee' : JSON.encode([]),
+      'input_assignee' : JSON.encode(['%designer%', '%editor%', '%creativeId%', '%publisher%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -262,7 +277,8 @@ class SubDeploy extends Bootstrapper {
       'type' : 'TASK',
       'ref_name' : 'publish',
       'place' : '',
-      'assignee' : JSON.encode(['%editor%']),
+      'assignee' : JSON.encode([]),
+      'input_assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -289,7 +305,7 @@ class SubDeploy extends Bootstrapper {
     })
     ];
     await createTemplate('Article creation %title%',
-      '', 'PROJECT', 'arcticle', [], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'article', [], [], nested, defWorkflow, 'megaTeemId');
   }
 
   createStub_ItHelpdesk_Templates() async {
@@ -300,6 +316,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'ticket',
       'place' : '',
       'assignee' : JSON.encode([]),
+      'input_assignee' : JSON.encode(['%engineer%', '%approver%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -348,6 +365,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'it',
       'place' : '',
       'assignee' : JSON.encode(['%engineer%']),
+      'input_assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -371,6 +389,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'docs',
       'place' : '',
       'assignee' : JSON.encode(['%manager%']),
+      'input_assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -394,6 +413,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'buddy',
       'place' : '',
       'assignee' : JSON.encode(['%buddy%']),
+      'input_assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -416,7 +436,7 @@ class SubDeploy extends Bootstrapper {
     }),
     ];
     await createTemplate('Welcome onboarding %name%',
-      '', 'PROJECT', 'hr', [], nested, defWorkflow, 'megaTeemId');
+      '', 'PROJECT', 'hr', [], [], nested, defWorkflow, 'megaTeemId');
   }
 
   createStub_Event_Templates() async {

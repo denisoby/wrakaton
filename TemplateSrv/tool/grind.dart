@@ -25,6 +25,7 @@ migrate() async {
   await gateway.connect();
   await gateway.migrate(migrations);
   await dataCreator.init();
+  await dataCreator.deployMain();
   await gateway.disconnect();
 }
 
@@ -33,4 +34,9 @@ rollback() async {
   await gateway.connect();
   await gateway.rollback(migrations);
   await gateway.disconnect();
+}
+
+@Task()
+deployBankTmpl() async {
+  await dataCreator.init();
 }
