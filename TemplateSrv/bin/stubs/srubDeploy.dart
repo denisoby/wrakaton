@@ -142,6 +142,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'collect',
       'place' : '',
       'assignee' : JSON.encode(['%analyst%']),
+      'input_assignee' : JSON.encode(['%analyst%', '%author%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -181,6 +182,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'content',
       'place' : '',
       'assignee' : JSON.encode([]),
+      'input_assignee' : JSON.encode(['%author%', '%editor%', '%designer%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -223,6 +225,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'makeup',
       'place' : '',
       'assignee' : JSON.encode([]),
+      'input_assignee' : JSON.encode(['%designer%', '%editor%', '%creativeId%', '%publisher%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -272,6 +275,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'publish',
       'place' : '',
       'assignee' : JSON.encode([]),
+      'input_assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -309,6 +313,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'ticket',
       'place' : '',
       'assignee' : JSON.encode([]),
+      'input_assignee' : JSON.encode(['%engineer%', '%approver%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -357,6 +362,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'it',
       'place' : '',
       'assignee' : JSON.encode(['%engineer%']),
+      'input_assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -380,6 +386,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'docs',
       'place' : '',
       'assignee' : JSON.encode(['%manager%']),
+      'input_assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -403,6 +410,7 @@ class SubDeploy extends Bootstrapper {
       'ref_name' : 'buddy',
       'place' : '',
       'assignee' : JSON.encode(['%buddy%']),
+      'input_assignee' : JSON.encode([]),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
         { /* 0 */
@@ -426,43 +434,6 @@ class SubDeploy extends Bootstrapper {
     ];
     await createTemplate('Welcome onboarding %name%',
       '', 'PROJECT', 'hr', [], nested, defWorkflow, 'megaTeemId');
-  }
-
-  createStub_Bank_Credit_Templates() async {
-    List<int> nested = [
-    await _createTemplate({
-      'title' : 'Documents preparation: %name%',
-      'description' : 'Scan standart documents: pasport, photo.',
-      'type' : 'TASK',
-      'ref_name' : 'docs_2',
-      'place' : '',
-      'assignee' : JSON.encode(['%client_manager%']),
-      'nested' : JSON.encode([]),
-      'workflow' : JSON.encode(defWorkflow)
-    }),
-    await _createTemplate({
-      'title' : 'Security check: %name%',
-      'description' : 'Check cleanliness customers',
-      'type' : 'TASK',
-      'ref_name' : 'secur',
-      'place' : '',
-      'assignee' : JSON.encode(['%security_manager%']),
-      'nested' : JSON.encode([]),
-      'workflow' : JSON.encode(defWorkflow)
-    }),
-    await _createTemplate({
-      'title' : 'Final resolution: %name%',
-      'description' : 'Provide info about resolution',
-      'type' : 'TASK',
-      'ref_name' : 'secur',
-      'place' : '',
-      'assignee' : JSON.encode(['%client_manager%']),
-      'nested' : JSON.encode([]),
-      'workflow' : JSON.encode(defWorkflow)
-    }),
-    ];
-    await createTemplate('Credit request %name%',
-      '', 'TASK', 'bank', [], nested, defWorkflow, 'megaTeemId');
   }
 
 }
