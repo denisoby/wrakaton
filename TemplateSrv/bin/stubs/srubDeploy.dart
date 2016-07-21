@@ -48,6 +48,7 @@ class SubDeploy extends Bootstrapper {
     await createStub_Article_Templates();
     await createStub_ItHelpdesk_Templates();
     await createStub_HR_welcome_Templates();
+    await createStub_Event_Templates();
     await createFormData();
   }
 
@@ -132,6 +133,15 @@ class SubDeploy extends Bootstrapper {
         ..entity_id = 28482
         ..type = RecordType.FORMS.toInt()
         ..data = { 'taskFormId' : 28482, 'templateId' : root.id, 'targetFolderId' : 8528918};
+      await _records.save(item);
+    }
+    {
+      /*Event*/
+      Template root = await _templates.where((el) => el.ref_name == 'event').first();
+      Record item = new Record()
+        ..entity_id = 28482
+        ..type = RecordType.FORMS.toInt()
+        ..data = { 'taskFormId' : 28545, 'templateId' : root.id, 'targetFolderId' : 8558054};
       await _records.save(item);
     }
   }
