@@ -524,7 +524,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'plan2',
         'place' : '',
-        'assignee' : JSON.encode(['content']),
+        'assignee' : JSON.encode([]),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -548,7 +548,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'plan3',
         'place' : '',
-        'assignee' : JSON.encode(['%buddy%']),
+        'assignee' : JSON.encode([]),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
