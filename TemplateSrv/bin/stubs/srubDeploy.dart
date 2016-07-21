@@ -1183,7 +1183,7 @@ class SubDeploy extends Bootstrapper {
     await createTemplate('Press kit',
         '', 'FOLDER', 'presskit', [], [], nestedpresskit, defWorkflow, 'megaTeemId'),
   ];
-    await createTemplate('Event: %name%',
+    await createTemplate('Event: %title%',
         '', 'PROJECT', 'event', [], [], nested1stlevel, defWorkflow, 'megaTeemId');
   }
 }
