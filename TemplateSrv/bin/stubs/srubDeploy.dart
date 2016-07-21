@@ -304,7 +304,7 @@ class SubDeploy extends Bootstrapper {
       ])
     })
     ];
-    await createTemplate('Article creation %title%',
+    await createTemplate('Article: %title%',
       '', 'PROJECT', 'article', [], [], nested, defWorkflow, 'megaTeemId');
   }
 
@@ -315,7 +315,7 @@ class SubDeploy extends Bootstrapper {
       'type' : 'TASK',
       'ref_name' : 'ticket',
       'place' : '',
-      'assignee' : JSON.encode([]),
+      'assignee' : JSON.encode(['%engineerId%']),
       'input_assignee' : JSON.encode(['%engineerId%', '%creativeId%']),
       'nested' : JSON.encode([]),
       'workflow' : JSON.encode([
