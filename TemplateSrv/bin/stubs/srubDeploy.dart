@@ -472,49 +472,7 @@ class SubDeploy extends Bootstrapper {
           },
           { /* 2 */
             'state_name': "Completed", 'to_states': [ ],
-            'enter_actions': [
-              {'path' : ['event', 'planning','plan2'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
-              {'path' : ['event', 'planning','plan2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'planning','plan3'], 'action' : { 'name' : 'assign', 'data' : '%pr%'} },
-              {'path' : ['event', 'planning','plan3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'booking','book1'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
-              {'path' : ['event', 'booking','book1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'booking','book2'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
-              {'path' : ['event', 'booking','book2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'booking','book3'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
-              {'path' : ['event', 'booking','book3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'collaterals','coll1'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
-              {'path' : ['event', 'collaterals','coll1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'collaterals','coll2'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
-              {'path' : ['event', 'collaterals','coll2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'collaterals','coll3'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
-              {'path' : ['event', 'collaterals','coll3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'collaterals','coll4'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
-              {'path' : ['event', 'collaterals','coll4'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'collaterals','coll5'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
-              {'path' : ['event', 'collaterals','coll5'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'massmedia','mm1'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
-              {'path' : ['event', 'massmedia','mm1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'massmedia','mm2'], 'action' : { 'name' : 'assign', 'data' : '%designer%'} },
-              {'path' : ['event', 'massmedia','mm2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'massmedia','mm3'], 'action' : { 'name' : 'assign', 'data' : '%pr%'} },
-              {'path' : ['event', 'massmedia','mm3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'massmedia','mm4'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
-              {'path' : ['event', 'massmedia','mm4'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'presskit','kit1'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
-              {'path' : ['event', 'presskit','kit1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'presskit','kit2'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
-              {'path' : ['event', 'presskit','kit2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'presskit','kit3'], 'action' : { 'name' : 'assign', 'data' : '%event%'} },
-              {'path' : ['event', 'presskit','kit3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'speakers','spk1'], 'action' : { 'name' : 'assign', 'data' : '%speaker%'} },
-              {'path' : ['event', 'speakers','spk1'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'speakers','spk2'], 'action' : { 'name' : 'assign', 'data' : '%content%'} },
-              {'path' : ['event', 'speakers','spk2'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-              {'path' : ['event', 'speakers','spk3'], 'action' : { 'name' : 'assign', 'data' : '%speaker%'} },
-              {'path' : ['event', 'speakers','spk3'], 'action' : { 'name' : 'status', 'data' : 'In progress'} },
-
-            ], 'leave_actions': [ ]
+            'enter_actions': [ ], 'leave_actions': [ ]
           }
         ])
       }),
@@ -524,7 +482,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'plan2',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%content%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -548,7 +506,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'plan3',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%pr%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -575,7 +533,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'book1',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -599,7 +557,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'book2',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -623,7 +581,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'book3',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -650,7 +608,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'coll1',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%designer%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -674,7 +632,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'coll22',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%designer%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -698,7 +656,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'coll3',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%designer%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -722,7 +680,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'coll4',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%designer%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -746,7 +704,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'coll5',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%designer%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -773,7 +731,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'mm1',
         'place' : '',
-        'assignee' : JSON.encode(['']),
+        'assignee' : JSON.encode(['%pr%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -797,7 +755,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'mm2',
         'place' : '',
-        'assignee' : JSON.encode(['']),
+        'assignee' : JSON.encode(['%designer%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -821,7 +779,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'mm3',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%content%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -845,7 +803,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'mm4',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -872,7 +830,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'kit1',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%content%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -896,7 +854,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'kit2',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%designer%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -920,7 +878,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'kit3',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -947,7 +905,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'spk1',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%content%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -971,7 +929,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'spk2',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%speaker%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -998,7 +956,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'site1',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -1022,7 +980,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'site2',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -1046,7 +1004,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'site4',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -1073,7 +1031,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'post1',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%pr%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -1097,7 +1055,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'post2',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%pr%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -1121,7 +1079,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'post3',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%pr%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
@@ -1145,7 +1103,7 @@ class SubDeploy extends Bootstrapper {
         'type' : 'TASK',
         'ref_name' : 'post4',
         'place' : '',
-        'assignee' : JSON.encode([]),
+        'assignee' : JSON.encode(['%event%']),
         'input_assignee' : JSON.encode(['%content%', '%pr%', '%event%','%designer%','%speaker%']),
         'nested' : JSON.encode([]),
         'workflow' : JSON.encode([
